@@ -125,7 +125,6 @@ ARABIC_GLYPHS_LIST = [
 	[u'\u066E', u'\uFBE4', u'\uFBE8', u'\uFBE9', u'\uFBE5', 4],
 	[u'\u06AA', u'\uFB8E', u'\uFB90', u'\uFB91', u'\uFB8F', 4],
 	[u'\u06C1', u'\uFBA6', u'\uFBA8', u'\uFBA9', u'\uFBA7', 4],
-	[u'\u06E4', u'\u06E4', u'\u06E4', u'\u06E4', u'\uFEEE', 2]
 ]
 
 def get_reshaped_glyph(target, location):
@@ -223,18 +222,29 @@ def get_reshaped_word(unshaped_word):
 	return decomposed_word.reconstruct_word(result)
 
 def reshape_it(unshaped_word):
-	reshaped_word = [get_reshaped_glyph(unshaped_word[0], 2)]
-	for i in range(1, len(unshaped_word) - 1):
-		if get_glyph_type(unshaped_word[i - 1]) == 2:
-			reshaped_word.append(get_reshaped_glyph(unshaped_word[i], 2))
+	if not unshaped_word:
+		return u''
+	if len(unshaped_word) == 1:
+		return get_reshaped_glyph(unshaped_word[0], 1)
+	reshaped_word = []
+	for i in range(len(unshaped_word)):
+		before = False
+		after = False
+		if i == 0:
+			after = get_glyph_type(unshaped_word[i]) == 4
+		elif i == len(unshaped_word) - 1:
+			before = get_glyph_type(unshaped_word[i - 1]) == 4
 		else:
+			after = get_glyph_type(unshaped_word[i]) == 4
+			before = get_glyph_type(unshaped_word[i - 1]) == 4
+		if after and before:
 			reshaped_word.append(get_reshaped_glyph(unshaped_word[i], 3))
-
-	if len(unshaped_word) >= 2:
-		if get_glyph_type(unshaped_word[-2]) == 2:
-			reshaped_word.append(get_reshaped_glyph(unshaped_word[-1], 1))
-		else:
-			reshaped_word.append(get_reshaped_glyph(unshaped_word[-1], 4))
+		elif after and not before:
+			reshaped_word.append(get_reshaped_glyph(unshaped_word[i], 2))
+		elif not after and before:
+			reshaped_word.append(get_reshaped_glyph(unshaped_word[i], 4))
+		elif not after and not before:
+			reshaped_word.append(get_reshaped_glyph(unshaped_word[i], 1))
 
 	return u''.join(reshaped_word)
 
