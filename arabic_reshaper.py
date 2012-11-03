@@ -82,7 +82,13 @@ ARABIC_GLYPHS = {
 	u'\u066E' : [u'\u066E', u'\uFBE4', u'\uFBE8', u'\uFBE9', u'\uFBE5', 4],
 	u'\u06AA' : [u'\u06AA', u'\uFB8E', u'\uFB90', u'\uFB91', u'\uFB8F', 4],
 	u'\u06C1' : [u'\u06C1', u'\uFBA6', u'\uFBA8', u'\uFBA9', u'\uFBA7', 4],
-	u'\u06E4' : [u'\u06E4', u'\u06E4', u'\u06E4', u'\u06E4', u'\uFEEE', 2]
+	u'\u06E4' : [u'\u06E4', u'\u06E4', u'\u06E4', u'\u06E4', u'\uFEEE', 2],
+	u'\u067E' : [u'\u067E', u'\uFB56', u'\uFB58', u'\uFB59', u'\uFB57', 4],
+	u'\u0698' : [u'\u0698', u'\uFB8A', u'\uFB8A', u'\uFB8A', u'\uFB8B', 2],
+	u'\u06AF' : [u'\u06AF', u'\uFB92', u'\uFB94', u'\uFB95', u'\uFB93', 4],
+	u'\u0686' : [u'\u0686', u'\uFB7A', u'\uFB7C', u'\uFB7D', u'\uFB7B', 4],
+	u'\u06A9' : [u'\u06A9', u'\uFB8E', u'\uFB90', u'\uFB91', u'\uFB8F', 4],
+	u'\u06CC' : [u'\u06CC', u'\uFEEF', u'\uFEF3', u'\uFEF4', u'\uFEF0', 4]
 }
 
 ARABIC_GLYPHS_LIST = [
@@ -125,6 +131,12 @@ ARABIC_GLYPHS_LIST = [
 	[u'\u066E', u'\uFBE4', u'\uFBE8', u'\uFBE9', u'\uFBE5', 4],
 	[u'\u06AA', u'\uFB8E', u'\uFB90', u'\uFB91', u'\uFB8F', 4],
 	[u'\u06C1', u'\uFBA6', u'\uFBA8', u'\uFBA9', u'\uFBA7', 4],
+	[u'\u067E', u'\uFB56', u'\uFB58', u'\uFB59', u'\uFB57', 4],
+	[u'\u0698', u'\uFB8A', u'\uFB8A', u'\uFB8A', u'\uFB8B', 2],
+	[u'\u06AF', u'\uFB92', u'\uFB94', u'\uFB95', u'\uFB93', 4],
+	[u'\u0686', u'\uFB7A', u'\uFB7C', u'\uFB7D', u'\uFB7B', 4],
+	[u'\u06A9', u'\uFB8E', u'\uFB90', u'\uFB91', u'\uFB8F', 4],
+	[u'\u06CC', u'\uFEEF', u'\uFEF3', u'\uFEF4', u'\uFEF0', 4]
 ]
 
 def get_reshaped_glyph(target, location):
