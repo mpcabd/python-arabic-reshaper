@@ -8,6 +8,9 @@ For more info visit my blog [post here](http://mpcabd.igeex.biz/python-arabic-te
 #    License
 This work is licensed under [GNU General Public License v3](http://www.gnu.org/licenses/gpl.txt).
 
+#    Demo
+*    Online Arabic Reshaper: http://pydj.igeex.biz/arabic-reshaper/
+
 #    Download
 *    Source Code:  	https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
