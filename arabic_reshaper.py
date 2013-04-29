@@ -153,7 +153,10 @@ def get_glyph_type(target):
 		
 def is_haraka(target):
 	return target in HARAKAT
-		
+
+def replace_jalalah(unshaped_word):
+	return re.sub(u'^\u0627\u0644\u0644\u0647$', u'\uFDF2', unshaped_word)
+
 def replace_lam_alef(unshaped_word):
 	list_word = list(unshaped_word)
 	letter_before = u''
@@ -226,6 +229,7 @@ class DecomposedWord(object):
 		return u''.join(l)
 
 def get_reshaped_word(unshaped_word):
+	unshaped_word = replace_jalalah(unshaped_word)
 	unshaped_word = replace_lam_alef(unshaped_word)
 	decomposed_word = DecomposedWord(unshaped_word)
 	result = u''
