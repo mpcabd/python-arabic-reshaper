@@ -9,6 +9,15 @@
 
 # Ported and tweaked from Java to Python, from Better Arabic Reshaper [https://github.com/agawish/Better-Arabic-Reshaper/]
 
+# Usage:
+### Install python-bidi [https://github.com/MeirKriheli/python-bidi], can be installed from pip `pip install python-bidi`.
+
+# import arabic_reshaper
+# from bidi.algorithm import get_display
+# reshaped_text = arabic_reshaper.reshape(u'اللغة العربية رائعة')
+# bidi_text = get_display(reshaped_text)
+### Now you can pass `bidi_text` to any function that handles displaying/printing of the text, like writing it to PIL Image or passing it to a PDF generating method.
+
 import re
 
 DEFINED_CHARACTERS_ORGINAL_ALF_UPPER_MDD 		= u'\u0622'
