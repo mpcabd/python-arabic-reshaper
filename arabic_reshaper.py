@@ -140,13 +140,13 @@ ARABIC_GLYPHS_LIST = [
 ]
 
 def get_reshaped_glyph(target, location):
-	if ARABIC_GLYPHS.has_key(target):
+	if target in ARABIC_GLYPHS:
 		return ARABIC_GLYPHS[target][location]
 	else:
 		return target
 		
 def get_glyph_type(target):
-	if ARABIC_GLYPHS.has_key(target):
+	if target in ARABIC_GLYPHS:
 		return ARABIC_GLYPHS[target][5]
 	else:
 		return 2
@@ -266,7 +266,7 @@ def reshape_it(unshaped_word):
 
 
 def is_arabic_character(target):
-	return ARABIC_GLYPHS.has_key(target) or target in HARAKAT
+	return target in ARABIC_GLYPHS or target in HARAKAT
 	
 def get_words(sentence):
 	if sentence:
