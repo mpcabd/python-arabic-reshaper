@@ -27,8 +27,8 @@ DEFINED_CHARACTERS_ORGINAL_ALF 					= u'\u0627'
 DEFINED_CHARACTERS_ORGINAL_LAM					= u'\u0644'
 
 LAM_ALEF_GLYPHS = [
-	[u'\u3BA6', u'\uFEF6', u'\uFEF5'],
-	[u'\u3BA7', u'\uFEF8', u'\uFEF7'],
+	[u'\u0622', u'\uFEF6', u'\uFEF5'],
+	[u'\u0623', u'\uFEF8', u'\uFEF7'],
 	[u'\u0627', u'\uFEFC', u'\uFEFB'],
 	[u'\u0625', u'\uFEFA', u'\uFEF9']
 ]
