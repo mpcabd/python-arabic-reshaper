@@ -324,6 +324,7 @@ def reshape(text):
 	
 def reshape_sentence(sentence):
 	words = get_words(sentence)
+	RTL = ""
 	for i in range(len(words)):
 		word = words[i]
 		if has_arabic_letters(word):
@@ -334,4 +335,6 @@ def reshape_sentence(sentence):
 				for j in range(len(mixed_words)):
 					mixed_words[j] = get_reshaped_word(mixed_words[j])
 				words[i] = u''.join(mixed_words)
-	return u' '.join(words)
+	for letter in u' '.join(words):
+		RTL= letter + RTL
+	return  RTL
