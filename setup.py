@@ -6,7 +6,7 @@ from setuptools import setup
 setup(
     name = "arabic_reshaper",
     description = "Reconstruct Arabic sentences to be used in applications that don't support Arabic",
-    version = 1.0,
+    version = 1.0.1,
     platforms = "ALL",
     license = "GPL",
     packages = ['arabic_reshaper'],
