@@ -1,3 +1,4 @@
-from arabic_reshaper import reshape
+from .arabic_reshaper import reshape
 
-__all__=[reshape] 
+__all__ = [reshape]
+
