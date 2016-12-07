@@ -22,6 +22,10 @@ The only issue left to solve is to reshape those characters and replace them wit
 
 ![Arabic text written from right to left with reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-3.png)
 
+## Installaion
+
+    pip install git+https://github.com/mpcabd/python-arabic-reshaper
+
 ## Usage
 
 ```
