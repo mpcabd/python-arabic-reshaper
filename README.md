@@ -53,7 +53,7 @@ This work is licensed under [GNU General Public License v3](http://www.gnu.org/l
 
 ## Demo
 
-Online Arabic Reshaper: http://pydj.igeex.biz/arabic-reshaper/
+Online Arabic Reshaper: http://pydj.mpczbd.xyz/arabic-reshaper/
 
 ## Download
 
