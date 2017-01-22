@@ -1,0 +1,3 @@
+include default-config.ini
+include arabic_reshaper.py
+include README
