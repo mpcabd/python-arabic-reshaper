@@ -21,11 +21,11 @@ We have two problems here, first, the characters are in the isolated form,
 which means that every character is rendered regardless of its surroundings,
 and second is that the text is written from left to right.
 
-To solve the latter issue all we have to do is to use the
+To solve the latter issue we had to use the
 [Unicode bidirectional algorithm](http://unicode.org/reports/tr9/), which is
 implemented purely in Python in
 [python-bidi](https://github.com/MeirKriheli/python-bidi).
-If you use it you’ll end up with something that looks like this:
+Which ended us up with something that looks like this:
 
 ![Arabic text written from right to left with no reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-6.png)
 
@@ -51,11 +51,10 @@ reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 # based on their surroundings, but if you are going to print the text in a
 # left-to-right context, which usually happens in libraries/apps that do not
 # support Arabic and/or right-to-left text rendering, then you need to use
-# get_display from python-bidi.
+# get_display.
 # Note that this is optional and depends on your usage of the reshaped text.
 
-from bidi.algorithm import get_display
-bidi_text = get_display(reshaped_text)
+bidi_text = arabic_reshaper.get_display(reshaped_text)
 
 # At this stage the text in bidi_text can be easily rendered in any library
 # that doesn't support Arabic and/or right-to-left, so use it as you'd use

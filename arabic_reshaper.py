@@ -30,6 +30,7 @@ import os
 
 from configparser import ConfigParser
 from itertools import repeat
+from bidi.algorithm import get_display as bidi_get_display
 
 # ----------------------- Begin: Ligatures Definitions ---------------------- #
 
@@ -1370,9 +1371,15 @@ class ArabicReshaper(object):
             )
         )
 
+    def get_display(self, text):
+        bidi_text = bidi_get_display(text)
+        reshaped_text = self.reshape(text)
+        return reshaped_text
+
 # ------------------------------ End: Reshaper ----------------------------- #
 
 # Exports
 
 default_reshaper = ArabicReshaper()
 reshape = default_reshaper.reshape
+get_display = default_reshaper.get_display
