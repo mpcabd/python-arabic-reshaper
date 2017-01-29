@@ -6,7 +6,7 @@ from setuptools import setup
 setup(
     name = "arabic_reshaper",
     description = "Reconstruct Arabic sentences to be used in applications that don't support Arabic",
-    version = '2.0.0',
+    version = '2.0.1',
     platforms = "ALL",
     license = "GPL",
     packages = ['arabic_reshaper'],
@@ -16,6 +16,7 @@ setup(
     maintainer = "Abdullah Diab",
     maintainer_email = "mpcabd@gmail.com",
     package_dir = { 'arabic_reshaper' : '.' },
+    package_data = { 'arabic_reshaper' : [ 'default-config.ini' ] },
     keywords = "arabic shaping reshaping reshaper",
     url = "https://mpcabd.xyz/python-arabic-text-reshaper/",
     download_url = "https://github.com/mpcabd/python-arabic-reshaper/tarball/master",
@@ -24,6 +25,7 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
  )
