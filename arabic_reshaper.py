@@ -1212,8 +1212,8 @@ class ArabicReshaper(object):
 
         if not os.path.exists(configuration_files[0]):
             raise Exception(
-                'Default configuration file {} not found,' +
-                ' check the module installation.'.format(
+                ('Default configuration file {} not found,' +
+                ' check the module installation.').format(
                     configuration_file,
                 )
             )
