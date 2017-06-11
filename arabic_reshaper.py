@@ -1214,7 +1214,7 @@ class ArabicReshaper(object):
             raise Exception(
                 ('Default configuration file {} not found,' +
                 ' check the module installation.').format(
-                    configuration_file,
+                    configuration_files[0],
                 )
             )
 
