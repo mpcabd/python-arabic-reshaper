@@ -30,6 +30,7 @@ import os
 
 from configparser import ConfigParser
 from itertools import repeat
+from pkg_resources import resource_filename
 
 # ----------------------- Begin: Ligatures Definitions ---------------------- #
 
@@ -1206,10 +1207,17 @@ class ArabicReshaper(object):
         super(ArabicReshaper, self).__init__()
 
         configuration_files = [
-            os.path.abspath(
-                os.path.join(os.path.dirname(__file__), 'default-config.ini')
-            ),
+            resource_filename(__name__, 'default-config.ini')
         ]
+
+        if not os.path.exists(configuration_files[0]):
+            raise Error(
+                'Default configuration file {} not found,' +
+                ' check the module installation.'.format(
+                    configuration_file,
+                )
+            )
+
 
         loaded_from_envvar = False
 
