@@ -45,3 +45,4 @@ venv/
 
 # ignore
 .ignore/
+.DS_Store

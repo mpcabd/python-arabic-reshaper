@@ -1,0 +1,9 @@
+# https://travis-ci.org/mpcabd/python-arabic-reshaper
+language: python
+python:
+  - "2.7"
+  - "3.6"
+install:
+  - "pip install -e ."
+script:
+    - "python setup.py test"
