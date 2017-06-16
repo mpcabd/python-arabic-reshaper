@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import unittest
 import arabic_reshaper
 
@@ -29,7 +31,13 @@ class TestDefaultConfiguration(unittest.TestCase):
     def test_ligatures(self):
         import arabic_reshaper.ligatures
         for ligature in arabic_reshaper.ligatures.LIGATURES:
-            with self.subTest(ligature=ligature[0]):
+            if hasattr(self, 'subTest'):
+                with self.subTest(ligature=ligature[0]):
+                    self.assertIn(ligature[0], self.reshaper.configuration)
+                    self.assertIsNotNone(
+                        self.reshaper.configuration.getboolean(ligature[0])
+                    )
+            else:
                 self.assertIn(ligature[0], self.reshaper.configuration)
                 self.assertIsNotNone(
                     self.reshaper.configuration.getboolean(ligature[0])

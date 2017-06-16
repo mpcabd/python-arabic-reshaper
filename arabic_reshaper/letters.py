@@ -13,6 +13,8 @@
 # <letter> should be in final form. If no replacement is specified for a form,
 # then no that means the letter doesn't support this form.
 
+from __future__ import unicode_literals
+
 ISOLATED = 0
 INITIAL = 1
 MEDIAL = 2

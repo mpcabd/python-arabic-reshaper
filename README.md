@@ -1,4 +1,7 @@
 ## Python Arabic Reshaper
+
+[![Build Status](https://travis-ci.org/mpcabd/python-arabic-reshaper.svg?branch=master)](https://travis-ci.org/mpcabd/python-arabic-reshaper)
+
 Reconstruct Arabic sentences to be used in applications that don't support
 Arabic script.
 
