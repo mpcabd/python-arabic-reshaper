@@ -90,6 +90,10 @@ in the reshaped text, you should enable this option if you are going to pass
 the reshaped text to `bidi.algorithm.get_display` because it will reverse the
 text and you'd end up with harakat applied to the next letter instead of the
 previous letter.
+* `delete_tatweel` (Default `False`): When this is set to `True` the reshaper
+will delete the Tatweel character (U+0640) from the text before reshaping, this
+can be useful when you want to support ligatures and don't care about Tatweel
+getting deleted.
 
 Besides the settings above, you can enable/disable supported ligatures. For a
 full list of supported ligatures and their default status check the file
@@ -109,10 +113,10 @@ from arabic_reshaper import ArabicReshaper
 configuration = {
     'delete_harakat': False,
     'support_ligatures': True,
-    'RIAL SIGN': True,  # Replace ريال with ﷼
+    'RIAL SIGN': True,  # Replace ر ي ا ل with ﷼
 }
 reshaper = ArabicReshaper(configuration=configuration)
-text_to_be_reshaped = 'سعر المنتج ١٥٠ ريال'
+text_to_be_reshaped = 'سعر المنتج ١٥٠ ر' + 'يال'  # had to split the string for display
 reshaped_text = reshaper.reshape(text_to_be_reshaped)
 ```
 
@@ -126,13 +130,8 @@ constructor's `configuration_file` parameter like this:
 
 ```
 from arabic_reshaper import ArabicReshaper
-configuration = {
-    'delete_harakat': False,
-    'support_ligatures': True,
-    'RIAL SIGN': True,  # Replace ريال with ﷼
-}
 reshaper = ArabicReshaper(configuration_file='/path/to/your/config.ini')
-text_to_be_reshaped = 'سعر المنتج ١٥٠ ريال'
+text_to_be_reshaped = 'سعر المنتج ١٥٠ ر' + 'يال'  # had to split the string for display
 reshaped_text = reshaper.reshape(text_to_be_reshaped)
 ```
 
@@ -178,6 +177,42 @@ Online Arabic Reshaper: http://pydj.mpczbd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 2.0.8
+
+* Added `delete_tatweel`
+* Added more test cases
+
+### 2.0.7
+
+* Fix tests for Python 2.7
+
+### 2.0.6
+
+* Fixed a bug with Harakat breaking the reshaping
+* Wrote two small unit tests, more to come
+* Moved letters and ligatures to separate files for readability/maintainability
+* Moved package to its own folder for readability/maintainability
+
+### 2.0.5
+
+Fix error message formatting
+
+### 2.0.4
+
+Fix error message formatting
+
+### 2.0.3
+
+Use `Exception` instead of `Error`.
+
+### 2.0.2
+
+Use `pkg_resources.resource_filename` instead of depending on `__file__` to access `default-config.ini`.
+
+### 2.0.1
+
+Include default-config.ini in setup.py
 
 ### 2.0.0
 

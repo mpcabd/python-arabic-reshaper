@@ -165,6 +165,7 @@ class ArabicReshaper(object):
         NOT_SUPPORTED = -1
 
         delete_harakat = self.configuration.getboolean('delete_harakat')
+        delete_tatweel = self.configuration.getboolean('delete_tatweel')
         positions_harakat = {}
 
         for letter in text:
@@ -174,6 +175,8 @@ class ArabicReshaper(object):
                     if position not in positions_harakat:
                         positions_harakat[position] = []
                     positions_harakat[position].append(letter)
+            elif letter == TATWEEL and delete_tatweel:
+                pass
             elif letter not in LETTERS:
                 output.append((letter, NOT_SUPPORTED))
             elif not output:
@@ -211,6 +214,11 @@ class ArabicReshaper(object):
         if self.configuration.getboolean('support_ligatures'):
             # Clean text from Harakat to be able to find ligatures
             text = HARAKAT_RE.sub('', text)
+
+            # Clean text from Tatweel to find ligatures if delete_tatweel
+            if delete_tatweel:
+                text = text.replace(TATWEEL, '')
+
             for match in re.finditer(self._ligatures_re, text):
                 group_index = next((
                     i for i, group in enumerate(match.groups()) if group

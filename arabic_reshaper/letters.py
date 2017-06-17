@@ -20,6 +20,8 @@ INITIAL = 1
 MEDIAL = 2
 FINAL = 3
 
+TATWEEL = '\u0640'
+
 LETTERS = {
     # ARABIC LETTER HAMZA
     '\u0621': ('\uFE80', '', '', ''),
@@ -74,7 +76,7 @@ LETTERS = {
     # ARABIC LETTER GHAIN
     '\u063A': ('\uFECD', '\uFECF', '\uFED0', '\uFECE'),
     # ARABIC TATWEEL
-    '\u0640': ('\u0640', '\u0640', '\u0640', '\u0640'),
+    TATWEEL:  (TATWEEL,   TATWEEL,  TATWEEL,  TATWEEL),
     # ARABIC LETTER FEH
     '\u0641': ('\uFED1', '\uFED3', '\uFED4', '\uFED2'),
     # ARABIC LETTER QAF

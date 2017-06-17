@@ -7,7 +7,7 @@ setup(
     name="arabic_reshaper",
     description=("Reconstruct Arabic sentences to be used in"
                  " applications that don't support Arabic"),
-    version='2.0.7',
+    version='2.0.8',
     platforms="ALL",
     license="GPL",
     packages=['arabic_reshaper'],
