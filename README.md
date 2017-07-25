@@ -170,7 +170,7 @@ This work is licensed under
 
 ## Demo
 
-Online Arabic Reshaper: http://pydj.mpczbd.xyz/arabic-reshaper/
+Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 
 ## Download
 
