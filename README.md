@@ -40,7 +40,7 @@ helps with the reshaping so we can get the proper result like this:
 
 ## Installaion
 
-    pip install git+https://github.com/mpcabd/python-arabic-reshaper
+    pip install --upgrade arabic-reshaper
 
 ## Usage
 
@@ -177,6 +177,10 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 2.0.9
+
+* Added support for ZWJ (Zero-width Joiner) (U+200D)
 
 ### 2.0.8
 
