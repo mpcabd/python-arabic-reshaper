@@ -3,11 +3,21 @@
 
 from setuptools import setup
 
+import os
+
+exec(
+    open(os.path.join(
+        os.path.dirname(__file__),
+        'arabic_reshaper',
+        '__version__.py'
+    )).read()
+)
+
 setup(
     name="arabic_reshaper",
     description=("Reconstruct Arabic sentences to be used in"
                  " applications that don't support Arabic"),
-    version='2.0.8',
+    version=__version__,
     platforms="ALL",
     license="GPL",
     packages=['arabic_reshaper'],
