@@ -661,15 +661,73 @@ LIGATURES = (
     ('ARABIC LIGATURE SEEN WITH YEH', (
         '\u0633\u064A', ('\uFCFC', '', '', '\uFD18'),
     )),
-    ('ARABIC LIGATURE SHADDA WITH DAMMA', (
-        '\u0640\u064F\u0651', ('', '', '\uFCF3', ''),
+
+    # Arabic ligatures with Shadda, the order of characters doesn't matter
+    ('ARABIC LIGATURE SHADDA WITH DAMMATAN ISOLATED FORM', (
+        '(?:\u064C\u0651|\u0651\u064C)',
+
+        ('\uFC5E', '\uFC5E', '\uFC5E', '\uFC5E'),
     )),
+    ('ARABIC LIGATURE SHADDA WITH KASRATAN ISOLATED FORM', (
+        '(?:\u064D\u0651|\u0651\u064D)',
+
+        ('\uFC5F', '\uFC5F', '\uFC5F', '\uFC5F'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH FATHA ISOLATED FORM', (
+        '(?:\u064E\u0651|\u0651\u064E)',
+
+        ('\uFC60', '\uFC60', '\uFC60', '\uFC60'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH DAMMA ISOLATED FORM', (
+        '(?:\u064F\u0651|\u0651\u064F)',
+
+        ('\uFC61', '\uFC61', '\uFC61', '\uFC61'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH KASRA ISOLATED FORM', (
+        '(?:\u0650\u0651|\u0651\u0650)',
+
+        ('\uFC62', '\uFC62', '\uFC62', '\uFC62'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH SUPERSCRIPT ALEF ISOLATED FORM', (
+        '(?:\u0670\u0651|\u0651\u0670)',
+
+        ('\uFC63', '\uFC63', '\uFC63', '\uFC63'),
+    )),
+
+    # There is a special case when they are with Tatweel
+    ('ARABIC LIGATURE SHADDA WITH FATHA MEDIAL FORM', (
+        '\u0640(?:\u064E\u0651|\u0651\u064E)',
+
+        ('\uFCF2', '\uFCF2', '\uFCF2', '\uFCF2'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH DAMMA MEDIAL FORM', (
+        '\u0640(?:\u064F\u0651|\u0651\u064F)',
+
+        ('\uFCF3', '\uFCF3', '\uFCF3', '\uFCF3'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH KASRA MEDIAL FORM', (
+        '\u0640(?:\u0650\u0651|\u0651\u0650)',
+
+        ('\uFCF4', '\uFCF4', '\uFCF4', '\uFCF4'),
+    )),
+
+    # Repeated with different keys to be backward compatible
     ('ARABIC LIGATURE SHADDA WITH FATHA', (
-        '\u0640\u064E\u0651', ('', '', '\uFCF2', ''),
+        '\u0640(?:\u064E\u0651|\u0651\u064E)',
+
+        ('\uFCF2', '\uFCF2', '\uFCF2', '\uFCF2'),
+    )),
+    ('ARABIC LIGATURE SHADDA WITH DAMMA', (
+        '\u0640(?:\u064F\u0651|\u0651\u064F)',
+
+        ('\uFCF3', '\uFCF3', '\uFCF3', '\uFCF3'),
     )),
     ('ARABIC LIGATURE SHADDA WITH KASRA', (
-        '\u0640\u0650\u0651', ('', '', '\uFCF4', ''),
+        '\u0640(?:\u0650\u0651|\u0651\u0650)',
+
+        ('\uFCF4', '\uFCF4', '\uFCF4', '\uFCF4'),
     )),
+
     ('ARABIC LIGATURE SHEEN WITH ALEF MAKSURA', (
         '\u0634\u0649', ('\uFCFD', '', '', '\uFD19'),
     )),
