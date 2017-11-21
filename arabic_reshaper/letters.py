@@ -24,6 +24,8 @@ TATWEEL = '\u0640'
 ZWJ = '\u200D'
 
 LETTERS = {
+    # Fix for ZWJ
+    '\u200D': ('', '\u200D', '\u200D', '\u200D'),
     # ARABIC LETTER HAMZA
     '\u0621': ('\uFE80', '', '', ''),
     # ARABIC LETTER ALEF WITH MADDA ABOVE
