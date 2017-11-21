@@ -178,6 +178,9 @@ LETTERS = {
     '\u06D2': ('\uFBAE', '', '', '\uFBAF'),
     # ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
     '\u06D3': ('\uFBB0', '', '', '\uFBB1'),
+
+    # ZWJ
+    ZWJ: (ZWJ, ZWJ, ZWJ, ZWJ),
 }
 
 

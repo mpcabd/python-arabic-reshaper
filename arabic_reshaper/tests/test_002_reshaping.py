@@ -70,7 +70,19 @@ class TestZWJReshaping(unittest.TestCase):
             ),
             (
                 letters.ZWJ + BEH + HAMZA,
-                BEH_ISOLATED + HAMZA_ISOLATED
+                BEH_FINAL + HAMZA_ISOLATED
+            ),
+            (
+                letters.ZWJ + BEH,
+                BEH_FINAL
+            ),
+            (
+                BEH + letters.ZWJ,
+                BEH_INITIAL
+            ),
+            (
+                letters.ZWJ + BEH + letters.ZWJ,
+                BEH_MEDIAL
             ),
             (
                 BEH + letters.ZWJ + HAMZA,

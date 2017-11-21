@@ -169,10 +169,7 @@ class ArabicReshaper(object):
         support_zwj = self.configuration.getboolean('support_zwj')
         positions_harakat = {}
 
-        arabic_word_start = -1
-        zwjs = []
-
-        for i, letter in enumerate(text):
+        for letter in text:
             if HARAKAT_RE.match(letter):
                 if not delete_harakat:
                     position = len(output) - 1
@@ -181,51 +178,15 @@ class ArabicReshaper(object):
                     positions_harakat[position].append(letter)
             elif letter == TATWEEL and delete_tatweel:
                 pass
-            elif letter == ZWJ and support_zwj:
-                zwjs.append(i)
-
-                if arabic_word_start != -1:
-                    # Handle three consecutive ZWJs or more
-                    if (
-                        len(zwjs) > 2 and
-                        zwjs[-2] == i - 1 and
-                        zwjs[-3] == i - 2
-                    ):
-                        arabic_word_start = -1
-                    # Handle when previous letter is not ZWJ
-                    elif (
-                        output and
-                        len(zwjs) == 1 or (len(zwjs) > 1 and zwjs[-2] != i - 1)
-                    ):
-                        previous_letter = output[-1]
-                        if connects_with_letter_after(previous_letter[LETTER]):
-                            if previous_letter[FORM] == ISOLATED:
-                                output[-1] = (
-                                    previous_letter[LETTER],
-                                    INITIAL
-                                )
-                            else:
-                                output[-1] = (
-                                    previous_letter[LETTER],
-                                    MEDIAL
-                                )
+            elif letter == ZWJ and not support_zwj:
+                pass
             elif letter not in LETTERS:
-                arabic_word_start = -1
                 output.append((letter, NOT_SUPPORTED))
             elif not output:  # first letter
-                arabic_word_start = i
                 output.append((letter, ISOLATED))
             else:
-                if arabic_word_start == -1:
-                    arabic_word_start = i
                 previous_letter = output[-1]
-                if (
-                    arabic_word_start != i and
-                    zwjs and
-                    connects_with_letter_before(letter)
-                ):
-                    output.append((letter, FINAL))
-                elif previous_letter[FORM] == NOT_SUPPORTED:
+                if previous_letter[FORM] == NOT_SUPPORTED:
                     output.append((letter, ISOLATED))
                 elif not connects_with_letter_before(letter):
                     output.append((letter, ISOLATED))
@@ -253,9 +214,12 @@ class ArabicReshaper(object):
                     )
                     output.append((letter, FINAL))
 
-            # clear ZWJs
-            if zwjs and letter != ZWJ:
-                zwjs = []
+            # Remove ZWJ if it's the second to last item as it won't be useful
+            if support_zwj and len(output) > 1 and output[-2][LETTER] == ZWJ:
+                output.pop(len(output) - 2)
+
+        if support_zwj and output and output[-1][LETTER] == ZWJ:
+            output.pop()
 
         if self.configuration.getboolean('support_ligatures'):
             # Clean text from Harakat to be able to find ligatures
