@@ -78,9 +78,8 @@ image_draw.text((10,10), bidi_text, fill=(255,255,255,128))
 You can configure the reshaper to your preferences, it has the following
 settings defined:
 
-* `language` (Default: `'Arabic'`): Currently it's ignored, but the reshaper
-might be extended in the future to work with other languages that use the
-Arabic script (Farsi, Urdu, etc.)
+* `language` (Default: `'Arabic'`): Ignored, the reshaper works with Arabic,
+Farsi, and Urdu, and most probably all other languages that use Arabic script.
 * `support_ligatures` (Default: `True`): When this is set to `False`, the
 reshaper will not replace any ligatures, otherwise it will replace enabled
 ligatures.
@@ -94,6 +93,14 @@ previous letter.
 will delete the Tatweel character (U+0640) from the text before reshaping, this
 can be useful when you want to support ligatures and don't care about Tatweel
 getting deleted.
+* `shift_harakat_position` (Default `False`): Whether to shift the Harakat
+(Tashkeel) one position so they appear correctly when string is reversed, this
+might solve the problem of Tashkeel in some systems, although for `PIL.Image`
+for example, this is not needed.
+* `support_zwj` (Default `True`): Whether to support ZWJ (`U+200D`) or not.
+* `use_unshaped_instead_of_isolated` (Default `False`): Use unshaped form
+instead of isolated form, useful in some forms that are missing the isolated
+form of letters.
 
 Besides the settings above, you can enable/disable supported ligatures. For a
 full list of supported ligatures and their default status check the file
@@ -152,16 +159,12 @@ define an environment variable with the name
 to the configuration file. This way the reshape function will pick it
 automatically, and you won't have to change your old code.
 
-## Known Issue
+## Tashkeel/Harakat issue
 
-When using a library/app that doesn't support right-to-left text rendering,
 [Harakat or Tashkeel](http://en.wikipedia.org/wiki/Arabic_diacritics#Tashkil_.28marks_used_as_phonetic_guides.29)
-cannot be supported, because their unicode characters are non-spacing marks
-(i.e. they don't take space, they are rendered in the same space of the
-character before them), which means that when you keep them and pass the
-reshaped text to `bidi.algorithm.get_display`, they will end up being rendered
-on the next character not the character they should be on as the text is
-reversed.
+might not show up properly in their correct place, depending on the application
+or the library that is doing the rendering for you, so you might want to enable
+the `shift_harakat_position` option if you face this problem.
 
 ## License
 
@@ -177,6 +180,27 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 2.0.14
+
+* New option `use_unshaped_instead_of_isolated` to get around some fonts missing the isolated form for letters.
+
+### 2.0.13
+
+**BROKEN** please make sure not to use this version.
+
+### 2.0.12
+
+* Updated letters and ligatures
+* New option `shift_harakat_position` to try to get around the Tashkeel problem
+
+### 2.0.11
+
+* Proper support for ZWJ
+
+### 2.0.10
+
+* Fix Shadda ligatures
 
 ### 2.0.9
 
