@@ -583,6 +583,9 @@ LIGATURES = (
     ('ARABIC LIGATURE QAF WITH YEH', (
         '\u0642\u064A', ('\uFC36', '', '', '\uFC7F'),
     )),
+    ('ARABIC LIGATURE QALA USED AS KORANIC STOP SIGN', (
+        '\u0642\u0644\u06D2', ('\uFDF1', '', '', ''),
+    )),
     ('ARABIC LIGATURE REH WITH SUPERSCRIPT ALEF', (
         '\u0631\u0670', ('\uFC5C', '', '', ''),
     )),
@@ -612,6 +615,9 @@ LIGATURES = (
     )),
     ('ARABIC LIGATURE SAD WITH YEH', (
         '\u0635\u064A', ('\uFD06', '', '', '\uFD22'),
+    )),
+    ('ARABIC LIGATURE SALLA USED AS KORANIC STOP SIGN', (
+        '\u0635\u0644\u06D2', ('\uFDF0', '', '', ''),
     )),
     ('ARABIC LIGATURE SEEN WITH ALEF MAKSURA', (
         '\u0633\u0649', ('\uFCFB', '', '', '\uFD17'),
@@ -688,10 +694,8 @@ LIGATURES = (
 
         ('\uFC62', '\uFC62', '\uFC62', '\uFC62'),
     )),
-    ('ARABIC LIGATURE SHADDA WITH SUPERSCRIPT ALEF ISOLATED FORM', (
-        '(?:\u0670\u0651|\u0651\u0670)',
-
-        ('\uFC63', '\uFC63', '\uFC63', '\uFC63'),
+    ('ARABIC LIGATURE SHADDA WITH SUPERSCRIPT ALEF', (
+        '(?:\u0651\u0670|\u0670\u0651)', ('\uFC63', '', '', ''),
     )),
 
     # There is a special case when they are with Tatweel

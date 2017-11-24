@@ -94,8 +94,8 @@ LETTERS = {
     '\u0647': ('\uFEE9', '\uFEEB', '\uFEEC', '\uFEEA'),
     # ARABIC LETTER WAW
     '\u0648': ('\uFEED', '', '', '\uFEEE'),
-    # ARABIC LETTER ALEF MAKSURA
-    '\u0649': ('\uFEEF', '', '', '\uFEF0'),
+    # ARABIC LETTER (UIGHUR KAZAKH KIRGHIZ)? ALEF MAKSURA
+    '\u0649': ('\uFEEF', '\uFBE8', '\uFBE9', '\uFEF0'),
     # ARABIC LETTER YEH
     '\u064A': ('\uFEF1', '\uFEF3', '\uFEF4', '\uFEF2'),
     # ARABIC LETTER ALEF WASLA

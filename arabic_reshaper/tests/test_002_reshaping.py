@@ -177,6 +177,22 @@ class TestReshapingWithHarakatWithoutLigatures(unittest.TestCase):
         _reshaping_test(self)
 
 
+class TestReshapingWithShiftedHarakatWithoutLigatures(unittest.TestCase):
+    def setUp(self):
+        self.reshaper = arabic_reshaper.ArabicReshaper({
+            'delete_harakat': False,
+            'support_ligatures': False,
+            'shift_harakat_position': True,
+        })
+        self.cases = (
+            ('فُعِلَ', 'ُﻓِﻌَﻞ'),
+            ('فُعِّلَ', 'ُﻓِّﻌَﻞ'),
+        )
+
+    def test_reshaping(self):
+        _reshaping_test(self)
+
+
 class TestReshapingSomeLigatures(unittest.TestCase):
     def setUp(self):
         self.reshaper = arabic_reshaper.ArabicReshaper({

@@ -167,15 +167,24 @@ class ArabicReshaper(object):
         delete_harakat = self.configuration.getboolean('delete_harakat')
         delete_tatweel = self.configuration.getboolean('delete_tatweel')
         support_zwj = self.configuration.getboolean('support_zwj')
+        shift_harakat_position = self.configuration.getboolean(
+            'shift_harakat_position'
+        )
+
         positions_harakat = {}
 
         for letter in text:
             if HARAKAT_RE.match(letter):
                 if not delete_harakat:
                     position = len(output) - 1
+                    if shift_harakat_position:
+                        position -= 1
                     if position not in positions_harakat:
                         positions_harakat[position] = []
-                    positions_harakat[position].append(letter)
+                    if shift_harakat_position:
+                        positions_harakat[position].insert(0, letter)
+                    else:
+                        positions_harakat[position].append(letter)
             elif letter == TATWEEL and delete_tatweel:
                 pass
             elif letter == ZWJ and not support_zwj:
