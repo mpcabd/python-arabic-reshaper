@@ -170,8 +170,15 @@ class ArabicReshaper(object):
         shift_harakat_position = self.configuration.getboolean(
             'shift_harakat_position'
         )
+        use_unshaped_instead_of_isolated = self.configuration.getboolean(
+            'use_unshaped_instead_of_isolated'
+        )
 
         positions_harakat = {}
+
+        isolated_form = (
+            use_unshaped_instead_of_isolated and UNSHAPED or ISOLATED
+        )
 
         for letter in text:
             if HARAKAT_RE.match(letter):
@@ -192,23 +199,23 @@ class ArabicReshaper(object):
             elif letter not in LETTERS:
                 output.append((letter, NOT_SUPPORTED))
             elif not output:  # first letter
-                output.append((letter, ISOLATED))
+                output.append((letter, isolated_form))
             else:
                 previous_letter = output[-1]
                 if previous_letter[FORM] == NOT_SUPPORTED:
-                    output.append((letter, ISOLATED))
+                    output.append((letter, isolated_form))
                 elif not connects_with_letter_before(letter):
-                    output.append((letter, ISOLATED))
+                    output.append((letter, isolated_form))
                 elif not connects_with_letter_after(
                     previous_letter[LETTER]
                 ):
-                    output.append((letter, ISOLATED))
+                    output.append((letter, isolated_form))
                 elif (previous_letter[FORM] == FINAL and not
                       connects_with_letters_before_and_after(
                           previous_letter[LETTER]
                       )):
-                    output.append((letter, ISOLATED))
-                elif previous_letter[FORM] == ISOLATED:
+                    output.append((letter, isolated_form))
+                elif previous_letter[FORM] == isolated_form:
                     output[-1] = (
                         previous_letter[LETTER],
                         INITIAL
@@ -259,13 +266,13 @@ class ArabicReshaper(object):
                 # | FINAL     | FINAL    | MEDIAL  | MEDIAL  | FINAL    |
                 # +-----------+----------+---------+---------+----------+
 
-                if a_form in (ISOLATED, INITIAL):
-                    if b_form in (ISOLATED, FINAL):
+                if a_form in (isolated_form, INITIAL):
+                    if b_form in (isolated_form, FINAL):
                         ligature_form = ISOLATED
                     else:
                         ligature_form = INITIAL
                 else:
-                    if b_form in (ISOLATED, FINAL):
+                    if b_form in (isolated_form, FINAL):
                         ligature_form = FINAL
                     else:
                         ligature_form = MEDIAL
@@ -279,7 +286,7 @@ class ArabicReshaper(object):
             result.extend(positions_harakat[-1])
         for i, o in enumerate(output):
             if o[LETTER]:
-                if o[FORM] == NOT_SUPPORTED:
+                if o[FORM] == NOT_SUPPORTED or o[FORM] == UNSHAPED:
                     result.append(o[LETTER])
                 else:
                     result.append(LETTERS[o[LETTER]][o[FORM]])

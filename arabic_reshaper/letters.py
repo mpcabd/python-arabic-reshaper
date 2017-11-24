@@ -15,6 +15,7 @@
 
 from __future__ import unicode_literals
 
+UNSHAPED = 255
 ISOLATED = 0
 INITIAL = 1
 MEDIAL = 2
