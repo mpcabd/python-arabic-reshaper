@@ -99,7 +99,7 @@ might solve the problem of Tashkeel in some systems, although for `PIL.Image`
 for example, this is not needed.
 * `support_zwj` (Default `True`): Whether to support ZWJ (`U+200D`) or not.
 * `use_unshaped_instead_of_isolated` (Default `False`): Use unshaped form
-instead of isolated form, useful in some forms that are missing the isolated
+instead of isolated form, useful in some fonts that are missing the isolated
 form of letters.
 
 Besides the settings above, you can enable/disable supported ligatures. For a
