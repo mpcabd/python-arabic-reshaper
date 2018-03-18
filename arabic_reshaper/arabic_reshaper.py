@@ -23,7 +23,6 @@
 # to a PDF generating method.
 
 from __future__ import unicode_literals
-from builtins import range
 
 import re
 import os
@@ -83,8 +82,8 @@ class ArabicReshaper(object):
             raise Exception(
                 ('Default configuration file {} not found,' +
                  ' check the module installation.').format(
-                    configuration_files[0],
-                )
+                     configuration_files[0],
+                 )
             )
 
         loaded_from_envvar = False
@@ -110,7 +109,7 @@ class ArabicReshaper(object):
             configuration_files.append(configuration_file)
 
         configuration_parser = ConfigParser()
-        configuration_from_files = configuration_parser.read(
+        configuration_parser.read(
             configuration_files
         )
 
@@ -151,7 +150,7 @@ class ArabicReshaper(object):
 
     def _get_ligature_forms_from_re_group_index(self, group_index):
         if not hasattr(self, '_re_group_index_to_ligature_forms'):
-            self._ligatures_re
+            return self._ligatures_re
         return self._re_group_index_to_ligature_forms[group_index]
 
     def reshape(self, text):
@@ -176,9 +175,8 @@ class ArabicReshaper(object):
 
         positions_harakat = {}
 
-        isolated_form = (
-            use_unshaped_instead_of_isolated and UNSHAPED or ISOLATED
-        )
+        isolated_form = (UNSHAPED
+                         if use_unshaped_instead_of_isolated else ISOLATED)
 
         for letter in text:
             if HARAKAT_RE.match(letter):
@@ -207,7 +205,7 @@ class ArabicReshaper(object):
                 elif not connects_with_letter_before(letter):
                     output.append((letter, isolated_form))
                 elif not connects_with_letter_after(
-                    previous_letter[LETTER]
+                        previous_letter[LETTER]
                 ):
                     output.append((letter, isolated_form))
                 elif (previous_letter[FORM] == FINAL and not
