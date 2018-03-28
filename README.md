@@ -38,7 +38,7 @@ helps with the reshaping so we can get the proper result like this:
 
 ![Arabic text written from right to left with reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-3.png)
 
-## Installaion
+## Installation
 
     pip install --upgrade arabic-reshaper
 
