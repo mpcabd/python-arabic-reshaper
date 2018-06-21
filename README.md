@@ -49,6 +49,21 @@ import arabic_reshaper
 
 text_to_be_reshaped = 'اللغة العربية رائعة'
 reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
+```
+
+### Example using PIL Image
+
+PIL Image does not support reshaping out of the box, so to draw Arabic text on an `Image` instance you would need to reshape
+the text for sure.
+
+For this example to work you need to run `pip install --upgrade arabic-reshaper python-bidi pillow`
+
+```
+
+import arabic_reshaper
+
+text_to_be_reshaped = 'اللغة العربية رائعة'
+reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 
 # At this stage the text is reshaped, all letters are in their correct form
 # based on their surroundings, but if you are going to print the text in a
@@ -65,11 +80,20 @@ bidi_text = get_display(reshaped_text)
 # any other string. For example if you're using PIL.ImageDraw.text to draw
 # text over an image you'd just use it like this...
 
-image = Image.new('RGBA', base.size, (255,255,255,0))
-image_draw = ImageDraw.Draw(image)
-image_draw.text((10,10), bidi_text, fill=(255,255,255,128))
+from PIL import Image, ImageDraw, ImageFont
 
-# See http://pillow.readthedocs.io/en/3.1.x/reference/ImageDraw.html?#PIL.ImageDraw.PIL.ImageDraw.Draw.text
+# We load Arial since it's a well known font that supports Arabic Unicode
+font = ImageFont.truetype('Arial', 40)
+
+image = Image.new('RGBA', (800, 600), (255,255,255,0))
+image_draw = ImageDraw.Draw(image)
+image_draw.text((10,10), bidi_text, fill=(255,255,255,128), font=font)
+
+# Now the text is rendered properly on the image, you can save it to a file or just call `show` to see it working
+image.show()
+
+# For more details on PIL.Image and PIL.ImageDraw check the documentation
+# See http://pillow.readthedocs.io/en/5.1.x/reference/ImageDraw.html?#PIL.ImageDraw.PIL.ImageDraw.Draw.text
 
 ```
 
