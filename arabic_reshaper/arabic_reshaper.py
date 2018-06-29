@@ -21,7 +21,6 @@
 # Now you can pass `bidi_text` to any function that handles
 # displaying/printing of the text, like writing it to PIL Image or passing it
 # to a PDF generating method.
-
 from __future__ import unicode_literals
 
 import re
@@ -33,6 +32,7 @@ from pkg_resources import resource_filename
 
 from .ligatures import *
 from .letters import *
+
 
 HARAKAT_RE = re.compile(
     '['
@@ -126,6 +126,16 @@ class ArabicReshaper(object):
 
         configuration = configuration_parser['ArabicReshaper']
         self.configuration = configuration
+        self.select = self.configuration.get('language') # from here it select language
+        
+        if self.select == 'ArabicV2':
+            LETTERS.update(LETTERS2)
+        elif self.select == 'Kurdish':
+            LETTERS.update(LETTERS3)
+        else:
+            LETTERS.update(LETTERS1) # till here I split letters to 3 section
+           
+        
 
     @property
     def _ligatures_re(self):
