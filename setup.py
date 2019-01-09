@@ -21,7 +21,7 @@ setup(
     platforms="ALL",
     license="GPL",
     packages=['arabic_reshaper'],
-    install_requires=['configparser', 'future'],
+    install_requires=['configparser', 'future', 'setuptools'],
     author="Abdullah Diab",
     author_email="mpcabd@gmail.com",
     maintainer="Abdullah Diab",
