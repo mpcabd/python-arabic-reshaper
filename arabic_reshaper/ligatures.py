@@ -135,67 +135,6 @@ LIGATURES = (
     ('ARABIC LIGATURE BEH WITH REH', (
         '\u0628\u0631', ('', '', '', '\uFC6A'),
     )),
-
-    ('ARABIC LIGATURE AIN WITH ALEF MAKSURA', (
-        '\u0639\u0649', ('\uFCF7', '', '', '\uFD13'),
-    )),
-    ('ARABIC LIGATURE AIN WITH JEEM', (
-        '\u0639\u062C', ('\uFC29', '\uFCBA', '', ''),
-    )),
-    ('ARABIC LIGATURE AIN WITH JEEM WITH MEEM', (
-        '\u0639\u062C\u0645', ('', '\uFDC4', '', '\uFD75'),
-    )),
-    ('ARABIC LIGATURE AIN WITH MEEM', (
-        '\u0639\u0645', ('\uFC2A', '\uFCBB', '', ''),
-    )),
-    ('ARABIC LIGATURE AIN WITH MEEM WITH ALEF MAKSURA', (
-        '\u0639\u0645\u0649', ('', '', '', '\uFD78'),
-    )),
-    ('ARABIC LIGATURE AIN WITH MEEM WITH MEEM', (
-        '\u0639\u0645\u0645', ('', '\uFD77', '', '\uFD76'),
-    )),
-    ('ARABIC LIGATURE AIN WITH MEEM WITH YEH', (
-        '\u0639\u0645\u064A', ('', '', '', '\uFDB6'),
-    )),
-    ('ARABIC LIGATURE AIN WITH YEH', (
-        '\u0639\u064A', ('\uFCF8', '', '', '\uFD14'),
-    )),
-    ('ARABIC LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF', (
-        '\u0649\u0670', ('\uFC5D', '', '', '\uFC90'),
-    )),
-    ('ARABIC LIGATURE ALEF WITH FATHATAN', (
-        '\u0627\u064B', ('\uFD3D', '', '', '\uFD3C'),
-    )),
-    ('ARABIC LIGATURE BEH WITH ALEF MAKSURA', (
-        '\u0628\u0649', ('\uFC09', '', '', '\uFC6E'),
-    )),
-    ('ARABIC LIGATURE BEH WITH HAH', (
-        '\u0628\u062D', ('\uFC06', '\uFC9D', '', ''),
-    )),
-    ('ARABIC LIGATURE BEH WITH HAH WITH YEH', (
-        '\u0628\u062D\u064A', ('', '', '', '\uFDC2'),
-    )),
-    ('ARABIC LIGATURE BEH WITH HEH', (
-        '\u0628\u0647', ('', '\uFCA0', '\uFCE2', ''),
-    )),
-    ('ARABIC LIGATURE BEH WITH JEEM', (
-        '\u0628\u062C', ('\uFC05', '\uFC9C', '', ''),
-    )),
-    ('ARABIC LIGATURE BEH WITH KHAH', (
-        '\u0628\u062E', ('\uFC07', '\uFC9E', '', ''),
-    )),
-    ('ARABIC LIGATURE BEH WITH KHAH WITH YEH', (
-        '\u0628\u062E\u064A', ('', '', '', '\uFD9E'),
-    )),
-    ('ARABIC LIGATURE BEH WITH MEEM', (
-        '\u0628\u0645', ('\uFC08', '\uFC9F', '\uFCE1', '\uFC6C'),
-    )),
-    ('ARABIC LIGATURE BEH WITH NOON', (
-        '\u0628\u0646', ('', '', '', '\uFC6D'),
-    )),
-    ('ARABIC LIGATURE BEH WITH REH', (
-        '\u0628\u0631', ('', '', '', '\uFC6A'),
-    )),
     ('ARABIC LIGATURE BEH WITH YEH', (
         '\u0628\u064A', ('\uFC0A', '', '', '\uFC6F'),
     )),
