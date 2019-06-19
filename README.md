@@ -193,7 +193,7 @@ the `shift_harakat_position` option if you face this problem.
 ## License
 
 This work is licensed under
-[GNU General Public License v3](http://www.gnu.org/licenses/gpl.txt).
+[MIT License](https://opensource.org/licenses/MIT).
 
 ## Demo
 
