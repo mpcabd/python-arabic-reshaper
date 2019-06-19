@@ -19,7 +19,7 @@ setup(
                  " applications that don't support Arabic"),
     version=__version__,
     platforms="ALL",
-    license="GPL",
+    license="MIT",
     packages=['arabic_reshaper'],
     install_requires=['configparser; python_version <"3"',
                       'future',
