@@ -42,6 +42,10 @@ helps with the reshaping so we can get the proper result like this:
 
     pip install --upgrade arabic-reshaper
 
+If you're using Anaconda you can use
+
+    conda install -c mpcabd arabic-reshaper
+
 ## Usage
 
 ```
