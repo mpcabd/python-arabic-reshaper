@@ -23,7 +23,6 @@ FINAL = 3
 
 TATWEEL = '\u0640'
 ZWJ = '\u200D'
-LETTERS = {}
 LETTERS_ARABIC = {
     # ARABIC LETTER HAMZA
     '\u0621': ('\uFE80', '', '', ''),
