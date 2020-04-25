@@ -31,7 +31,7 @@ from itertools import repeat
 from pkg_resources import resource_filename
 
 from .ligatures import *
-from .letters import *
+from .letters import UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC,LETTERS_ARABIC_V2,LETTERS_KURDISH, FINAL,INITIAL, MEDIAL, connects_with_letters_before_and_after,connects_with_letter_before, connects_with_letter_after
 
 
 HARAKAT_RE = re.compile(
@@ -127,10 +127,11 @@ class ArabicReshaper(object):
         configuration = configuration_parser['ArabicReshaper']
         self.configuration = configuration
         self.language = self.configuration.get('language')
+
         
         if self.language == 'ArabicV2':
             self.letters = LETTERS_ARABIC_V2
-        elif self.select == 'Kurdish':
+        elif self.language == 'Kurdish':
             self.letters = LETTERS_KURDISH
         else:
             self.letters = LETTERS_ARABIC
@@ -204,7 +205,7 @@ class ArabicReshaper(object):
                 pass
             elif letter == ZWJ and not support_zwj:
                 pass
-            elif letter not in LETTERS:
+            elif letter not in self.letters:
                 output.append((letter, NOT_SUPPORTED))
             elif not output:  # first letter
                 output.append((letter, isolated_form))
@@ -212,15 +213,14 @@ class ArabicReshaper(object):
                 previous_letter = output[-1]
                 if previous_letter[FORM] == NOT_SUPPORTED:
                     output.append((letter, isolated_form))
-                elif not connects_with_letter_before(letter):
+                elif not connects_with_letter_before(letter,self.letters):
                     output.append((letter, isolated_form))
                 elif not connects_with_letter_after(
-                        previous_letter[LETTER]
-                ):
+                        previous_letter[LETTER],self.letters):
                     output.append((letter, isolated_form))
                 elif (previous_letter[FORM] == FINAL and not
                       connects_with_letters_before_and_after(
-                          previous_letter[LETTER]
+                          previous_letter[LETTER],self.letters
                       )):
                     output.append((letter, isolated_form))
                 elif previous_letter[FORM] == isolated_form:
@@ -297,7 +297,7 @@ class ArabicReshaper(object):
                 if o[FORM] == NOT_SUPPORTED or o[FORM] == UNSHAPED:
                     result.append(o[LETTER])
                 else:
-                    result.append(LETTERS[o[LETTER]][o[FORM]])
+                    result.append(self.letters[o[LETTER]][o[FORM]])
 
             if not delete_harakat:
                 if i in positions_harakat:
