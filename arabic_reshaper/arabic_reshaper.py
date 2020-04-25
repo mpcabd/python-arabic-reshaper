@@ -126,7 +126,7 @@ class ArabicReshaper(object):
 
         configuration = configuration_parser['ArabicReshaper']
         self.configuration = configuration
-        self.select = self.configuration.get('language') # from here it select language
+        self.language = self.configuration.get('language')
         
         if self.select == 'ArabicV2':
             self.letters = LETTERS_ARABIC_V2
