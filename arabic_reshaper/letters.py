@@ -508,21 +508,21 @@ LETTERS_KURDISH = {
     ZWJ: (ZWJ, ZWJ, ZWJ, ZWJ),
 }
 
-def connects_with_letter_before(letter):
+def connects_with_letter_before(letter,LETTERS):
     if letter not in LETTERS:
         return False
     forms = LETTERS[letter]
     return forms[FINAL] or forms[MEDIAL]
 
 
-def connects_with_letter_after(letter):
+def connects_with_letter_after(letter,LETTERS):
     if letter not in LETTERS:
         return False
     forms = LETTERS[letter]
     return forms[INITIAL] or forms[MEDIAL]
 
 
-def connects_with_letters_before_and_after(letter):
+def connects_with_letters_before_and_after(letter,LETTERS):
     if letter not in LETTERS:
         return False
     forms = LETTERS[letter]
