@@ -131,7 +131,7 @@ class ArabicReshaper(object):
         if self.select == 'ArabicV2':
             LETTERS.update(LETTERS2)
         elif self.select == 'Kurdish':
-            LETTERS.update(LETTERS3)
+            self.letters = LETTERS_KURDISH
         else:
             LETTERS.update(LETTERS1) # till here I split letters to 3 section
            
