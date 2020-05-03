@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# This work is licensed under the GNU Public License (GPL).
-# To view a copy of this license, visit http://www.gnu.org/copyleft/gpl.html
+# This work is licensed under the MIT License.
+# To view a copy of this license, visit https://opensource.org/licenses/MIT
 
 # Written by Abdullah Diab (mpcabd)
 # Email: mpcabd@gmail.com
@@ -30,9 +30,11 @@ from configparser import ConfigParser
 from itertools import repeat
 from pkg_resources import resource_filename
 
-from .ligatures import *
-from .letters import UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC,LETTERS_ARABIC_V2,LETTERS_KURDISH, FINAL,INITIAL, MEDIAL, connects_with_letters_before_and_after,connects_with_letter_before, connects_with_letter_after
-
+from .ligatures import LIGATURES
+from .letters import (UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC,
+                      LETTERS_ARABIC_V2, LETTERS_KURDISH, FINAL,
+                      INITIAL, MEDIAL, connects_with_letters_before_and_after,
+                      connects_with_letter_before, connects_with_letter_after)
 
 HARAKAT_RE = re.compile(
     '['

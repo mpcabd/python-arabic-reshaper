@@ -5,3 +5,4 @@ include arabic_reshaper/default-config.ini
 include arabic_reshaper/letters.py
 include arabic_reshaper/ligatures.py
 include README.md
+include LICENSE
