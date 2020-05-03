@@ -54,17 +54,17 @@ class TestZWJReshaping(unittest.TestCase):
         self.reshaper = arabic_reshaper.default_reshaper
 
         BEH = 'ب'
-        BEH_ISOLATED = letters.LETTERS[BEH][letters.ISOLATED]
-        BEH_INITIAL = letters.LETTERS[BEH][letters.INITIAL]
-        BEH_MEDIAL = letters.LETTERS[BEH][letters.MEDIAL]
-        BEH_FINAL = letters.LETTERS[BEH][letters.FINAL]
+        BEH_ISOLATED = letters.LETTERS_ARABIC[BEH][letters.ISOLATED]
+        BEH_INITIAL = letters.LETTERS_ARABIC[BEH][letters.INITIAL]
+        BEH_MEDIAL = letters.LETTERS_ARABIC[BEH][letters.MEDIAL]
+        BEH_FINAL = letters.LETTERS_ARABIC[BEH][letters.FINAL]
 
         ALEF = 'ا'
-        ALEF_ISOLATED = letters.LETTERS[ALEF][letters.ISOLATED]
-        ALEF_FINAL = letters.LETTERS[ALEF][letters.FINAL]
+        ALEF_ISOLATED = letters.LETTERS_ARABIC[ALEF][letters.ISOLATED]
+        ALEF_FINAL = letters.LETTERS_ARABIC[ALEF][letters.FINAL]
 
         HAMZA = 'ء'
-        HAMZA_ISOLATED = letters.LETTERS[HAMZA][letters.ISOLATED]
+        HAMZA_ISOLATED = letters.LETTERS_ARABIC[HAMZA][letters.ISOLATED]
 
         self.cases = (
             (
