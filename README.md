@@ -187,6 +187,43 @@ define an environment variable with the name
 to the configuration file. This way the reshape function will pick it
 automatically, and you won't have to change your old code.
 
+## Settings based on a TrueType® font
+
+If you intend to render the text in a TrueType® font, you can tell the library
+to generate its configuration by reading the font file to figure out what's
+supported in the font and what's not.
+
+To use this feature you need to install the library with an extra option
+(not necessary when you install it with conda):
+
+	pip install --upgrade arabic-reshaper[with-fonttools]
+
+Then you can use the reshaper like this:
+
+```python
+import arabic_reshaper
+
+reshaper = arabic_reshaper.ArabicReshaper(
+	arabic_reshaper.config_for_true_type_font('/path/to/true-type-font.ttf',
+											  arabic_reshaper.ENABLE_ALL_LIGATURES)
+)
+```
+
+This will parse the font file, and figure out what ligatures it supports and enable them,
+as well as whether it has isolated forms or `use_unshaped_instead_of_isolated` should be
+enabled.
+
+The second parameter to `config_for_true_type_font` can be one of
+
+- ENABLE_NO_LIGATURES
+- ENABLE_SENTENCES_LIGATURES
+- ENABLE_WORDS_LIGATURES
+- ENABLE_LETTERS_LIGATURES
+- ENABLE_ALL_LIGATURES (default)
+
+which controls what ligatures to look for, depending on your usage,
+see [default-config.ini](default-config.ini) to know what ligatures are there.
+
 ## Tashkeel/Harakat issue
 
 [Harakat or Tashkeel](http://en.wikipedia.org/wiki/Arabic_diacritics#Tashkil_.28marks_used_as_phonetic_guides.29)
@@ -208,6 +245,10 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 2.1.0
+
+* Added support for settings based on a TrueType® font
 
 ### 2.0.14
 

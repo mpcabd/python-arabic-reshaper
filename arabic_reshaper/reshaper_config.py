@@ -14,6 +14,24 @@ import os
 from configparser import ConfigParser
 from pkg_resources import resource_filename
 
+from .letters import (UNSHAPED, ISOLATED, LETTERS_ARABIC)
+from .ligatures import (SENTENCES_LIGATURES,
+                        WORDS_LIGATURES,
+                        LETTERS_LIGATURES)
+
+try:
+    from fontTools.ttLib import TTFont
+    with_font_config = True
+except ImportError:
+    with_font_config = False
+
+ENABLE_NO_LIGATURES = 0b000
+ENABLE_SENTENCES_LIGATURES = 0b001
+ENABLE_WORDS_LIGATURES = 0b010
+ENABLE_LETTERS_LIGATURES = 0b100
+ENABLE_ALL_LIGATURES = 0b111
+
+
 def auto_config(configuration=None, configuration_file=None):
     configuration_files = [
         resource_filename(__name__, 'default-config.ini')
@@ -24,7 +42,7 @@ def auto_config(configuration=None, configuration_file=None):
             ('Default configuration file {} not found,' +
              ' check the module installation.').format(
                  configuration_files[0],
-             )
+            )
         )
 
     loaded_from_envvar = False
@@ -68,6 +86,46 @@ def auto_config(configuration=None, configuration_file=None):
     return configuration_parser['ArabicReshaper']
 
 
-def config_for_font():
-    pass
+def config_for_true_type_font(font_file_path,
+                              ligatures_config=ENABLE_ALL_LIGATURES):
+    if not with_font_config:
+        raise Exception('fonttools not installed, ' +
+                        'install it then rerun this.\n' +
+                        '$ pip install arabic-teshaper[with-fonttools]')
+    if not font_file_path or not os.path.exists(font_file_path):
+        raise Exception('Invalid path to font file')
+    ttfont = TTFont(font_file_path)
+    has_isolated = True
+    for k, v in LETTERS_ARABIC.items():
+        for table in ttfont['cmap'].tables:
+            if ord(v[ISOLATED]) in table.cmap:
+                break
+        else:
+            has_isolated = False
+            break
 
+    configuration = {
+        'use_unshaped_instead_of_isolated': not has_isolated,
+    }
+
+    def process_ligatures(ligatures):
+        for ligature in ligatures:
+            forms = list(filter(lambda form: form != '', ligature[1][1]))
+            n = len(forms)
+            for form in forms:
+                for table in ttfont['cmap'].tables:
+                    if ord(form) in table.cmap:
+                        n -= 1
+                        break
+            configuration[ligature[0]] = (n == 0)
+
+    if ENABLE_SENTENCES_LIGATURES & ligatures_config:
+        process_ligatures(SENTENCES_LIGATURES)
+
+    if ENABLE_WORDS_LIGATURES & ligatures_config:
+        process_ligatures(WORDS_LIGATURES)
+
+    if ENABLE_LETTERS_LIGATURES & ligatures_config:
+        process_ligatures(LETTERS_LIGATURES)
+
+    return configuration

@@ -23,9 +23,11 @@ setup(
     packages=['arabic_reshaper'],
     install_requires=['configparser; python_version <"3"',
                       'future',
-                      'setuptools',
-                      'fonttools>=4.0; python_version >="3"',
-                      'fonttools>=3.0<4.0; python_version <"3"'],
+                      'setuptools'],
+    extras_require={
+        'with-fonttools': ['fonttools>=4.0; python_version >="3"',
+                           'fonttools>=3.0<4.0; python_version <"3"']
+    },
     author="Abdullah Diab",
     author_email="mpcabd@gmail.com",
     maintainer="Abdullah Diab",
@@ -47,4 +49,4 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
- )
+)
