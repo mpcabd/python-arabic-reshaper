@@ -7,30 +7,14 @@
 # Email: mpcabd@gmail.com
 # Website: http://mpcabd.xyz
 
-# Ported and tweaked from Java to Python, from Better Arabic Reshaper
-# [https://github.com/agawish/Better-Arabic-Reshaper/]
-
-# Usage:
-# Install python-bidi [https://github.com/MeirKriheli/python-bidi], can be
-# installed from pip `pip install python-bidi`.
-
-# import arabic_reshaper
-# from bidi.algorithm import get_display
-# reshaped_text = arabic_reshaper.reshape('اللغة العربية رائعة')
-# bidi_text = get_display(reshaped_text)
-# Now you can pass `bidi_text` to any function that handles
-# displaying/printing of the text, like writing it to PIL Image or passing it
-# to a PDF generating method.
 from __future__ import unicode_literals
 
 import re
-import os
 
-from configparser import ConfigParser
 from itertools import repeat
-from pkg_resources import resource_filename
 
 from .ligatures import LIGATURES
+from .reshaper_config import auto_config
 from .letters import (UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC,
                       LETTERS_ARABIC_V2, LETTERS_KURDISH, FINAL,
                       INITIAL, MEDIAL, connects_with_letters_before_and_after,
@@ -73,72 +57,19 @@ class ArabicReshaper(object):
     See the default configuration file :file:`default-config.ini` for details
     on how to configure your reshaper.
     """
+
     def __init__(self, configuration=None, configuration_file=None):
         super(ArabicReshaper, self).__init__()
 
-        configuration_files = [
-            resource_filename(__name__, 'default-config.ini')
-        ]
-
-        if not os.path.exists(configuration_files[0]):
-            raise Exception(
-                ('Default configuration file {} not found,' +
-                 ' check the module installation.').format(
-                     configuration_files[0],
-                 )
-            )
-
-        loaded_from_envvar = False
-
-        if not configuration_file:
-            configuration_file = os.getenv(
-                'PYTHON_ARABIC_RESHAPER_CONFIGURATION_FILE'
-            )
-            if configuration_file:
-                loaded_from_envvar = True
-
-        if configuration_file:
-            if not os.path.exists(configuration_file):
-                raise Exception(
-                    'Configuration file {} not found{}.'.format(
-                        configuration_file,
-                        loaded_from_envvar and (
-                            ' it is set in your environment variable ' +
-                            'PYTHON_ARABIC_RESHAPER_CONFIGURATION_FILE'
-                        ) or ''
-                    )
-                )
-            configuration_files.append(configuration_file)
-
-        configuration_parser = ConfigParser()
-        configuration_parser.read(
-            configuration_files
-        )
-
-        if configuration:
-            configuration_parser.read_dict({
-                'ArabicReshaper': configuration
-            })
-
-        if 'ArabicReshaper' not in configuration_parser:
-            raise ValueError(
-                'Invalid configuration: '
-                'A section with the name ArabicReshaper was not found'
-            )
-
-        configuration = configuration_parser['ArabicReshaper']
-        self.configuration = configuration
+        self.configuration = auto_config(configuration, configuration_file)
         self.language = self.configuration.get('language')
 
-        
         if self.language == 'ArabicV2':
             self.letters = LETTERS_ARABIC_V2
         elif self.language == 'Kurdish':
             self.letters = LETTERS_KURDISH
         else:
             self.letters = LETTERS_ARABIC
-           
-        
 
     @property
     def _ligatures_re(self):
@@ -215,15 +146,15 @@ class ArabicReshaper(object):
                 previous_letter = output[-1]
                 if previous_letter[FORM] == NOT_SUPPORTED:
                     output.append((letter, isolated_form))
-                elif not connects_with_letter_before(letter,self.letters):
+                elif not connects_with_letter_before(letter, self.letters):
                     output.append((letter, isolated_form))
                 elif not connects_with_letter_after(
-                        previous_letter[LETTER],self.letters):
+                        previous_letter[LETTER], self.letters):
                     output.append((letter, isolated_form))
                 elif (previous_letter[FORM] == FINAL and not
                       connects_with_letters_before_and_after(
-                          previous_letter[LETTER],self.letters
-                      )):
+                          previous_letter[LETTER], self.letters
+                )):
                     output.append((letter, isolated_form))
                 elif previous_letter[FORM] == isolated_form:
                     output[-1] = (
