@@ -20,9 +20,9 @@
 # This way we make sure we replace the longest ligatures first
 
 from __future__ import unicode_literals
+from itertools import chain
 
-LIGATURES = (
-    # Sentences
+SENTENCES_LIGATURES = (
     ('ARABIC LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM', (
         '\u0628\u0633\u0645\u0020'
         '\u0627\u0644\u0644\u0647\u0020'
@@ -44,8 +44,9 @@ LIGATURES = (
 
         ('\uFDFA', '', '', '')
     )),
+)
 
-    # Words
+WORDS_LIGATURES = (
     ('ARABIC LIGATURE ALLAH', (
         '\u0627\u0644\u0644\u0647', ('\uFDF2', '', '', ''),
     )),
@@ -73,8 +74,9 @@ LIGATURES = (
     ('RIAL SIGN', (
         '\u0631[\u06CC\u064A]\u0627\u0644', ('\uFDFC', '', '', ''),
     )),
+)
 
-    # Letters
+LETTERS_LIGATURES = (
     ('ARABIC LIGATURE AIN WITH ALEF MAKSURA', (
         '\u0639\u0649', ('\uFCF7', '', '', '\uFD13'),
     )),
@@ -927,3 +929,5 @@ LIGATURES = (
         '\u0638\u0645', ('\uFC28', '\uFCB9', '\uFD3B', ''),
     )),
 )
+
+LIGATURES = tuple(chain(SENTENCES_LIGATURES, WORDS_LIGATURES, LETTERS_LIGATURES))

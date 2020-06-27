@@ -24,6 +24,10 @@ setup(
     install_requires=['configparser; python_version <"3"',
                       'future',
                       'setuptools'],
+    extras_require={
+        'with-fonttools': ['fonttools>=4.0; python_version >="3"',
+                           'fonttools>=3.0<4.0; python_version <"3"']
+    },
     author="Abdullah Diab",
     author_email="mpcabd@gmail.com",
     maintainer="Abdullah Diab",
@@ -40,8 +44,9 @@ setup(
         "Natural Language :: Arabic",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
- )
+)
