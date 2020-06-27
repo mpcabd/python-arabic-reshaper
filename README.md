@@ -196,7 +196,7 @@ supported in the font and what's not.
 To use this feature you need to install the library with an extra option
 (not necessary when you install it with conda):
 
-	pip install --upgrade arabic-reshaper[with-fonttools]
+    pip install --upgrade arabic-reshaper[with-fonttools]
 
 Then you can use the reshaper like this:
 
@@ -204,8 +204,10 @@ Then you can use the reshaper like this:
 import arabic_reshaper
 
 reshaper = arabic_reshaper.ArabicReshaper(
-	arabic_reshaper.config_for_true_type_font('/path/to/true-type-font.ttf',
-											  arabic_reshaper.ENABLE_ALL_LIGATURES)
+    arabic_reshaper.config_for_true_type_font(
+        '/path/to/true-type-font.ttf',
+        arabic_reshaper.ENABLE_ALL_LIGATURES
+    )
 )
 ```
 
@@ -215,11 +217,11 @@ enabled.
 
 The second parameter to `config_for_true_type_font` can be one of
 
-- ENABLE_NO_LIGATURES
-- ENABLE_SENTENCES_LIGATURES
-- ENABLE_WORDS_LIGATURES
-- ENABLE_LETTERS_LIGATURES
-- ENABLE_ALL_LIGATURES (default)
+- `ENABLE_NO_LIGATURES`
+- `ENABLE_SENTENCES_LIGATURES`
+- `ENABLE_WORDS_LIGATURES`
+- `ENABLE_LETTERS_LIGATURES`
+- `ENABLE_ALL_LIGATURES` (default)
 
 which controls what ligatures to look for, depending on your usage,
 see [default-config.ini](default-config.ini) to know what ligatures are there.
@@ -331,8 +333,8 @@ to Python.
 ## Contact
 
 Abdullah Diab (mpcabd)
-Email: 	mpcabd@gmail.com
-Blog:	http://mpcabd.xyz
+Email:  mpcabd@gmail.com
+Blog:   http://mpcabd.xyz
 
 For more info visit my blog
 [post here](http://mpcabd.xyz/python-arabic-text-reshaper/)
