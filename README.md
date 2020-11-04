@@ -248,6 +248,10 @@ https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
 
+### 2.1.1
+
+* Fix a warning. See #57. Thanks @fbernhart
+
 ### 2.1.0
 
 * Added support for settings based on a TrueType® font

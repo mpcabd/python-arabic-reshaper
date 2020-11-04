@@ -37,7 +37,7 @@ setup(
     test_suite='arabic_reshaper.tests',
     include_package_data=True,
     keywords="arabic shaping reshaping reshaper",
-    url="https://mpcabd.xyz/python-arabic-text-reshaper/",
+    url="https://github.com/mpcabd/python-arabic-reshaper/",
     download_url=("https://github.com/mpcabd/"
                   "python-arabic-reshaper/tarball/master"),
     classifiers=[
@@ -47,6 +47,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
 )
