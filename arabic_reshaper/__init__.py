@@ -9,4 +9,5 @@ from .reshaper_config import (config_for_true_type_font,
                               ENABLE_ALL_LIGATURES)
 
 
-exec(open(os.path.join(os.path.dirname(__file__), '__version__.py')).read())
+with open(os.path.join(os.path.dirname(__file__), '__version__.py')) as fh:
+    exec(fh.read())
