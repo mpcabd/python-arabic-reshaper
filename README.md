@@ -132,7 +132,7 @@ form of letters.
 
 Besides the settings above, you can enable/disable supported ligatures. For a
 full list of supported ligatures and their default status check the file
-[default-config.ini](default-config.ini).
+[default-config.ini](https://github.com/mpcabd/python-arabic-reshaper/blob/32f7497aa24a68ab880d0248b21715928f0ce212/arabic_reshaper/default-config.ini).
 
 There are multiple ways that you can configure the reshaper in, choose the one
 that suits your deployment:
@@ -247,6 +247,10 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 2.1.2
+
+* Remove dependency on `__version__.py` and `default-config.ini` files, as they were causing problems for people who package their apps using pyinstaller or buildozer.
 
 ### 2.1.1
 

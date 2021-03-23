@@ -9,5 +9,4 @@ from .reshaper_config import (config_for_true_type_font,
                               ENABLE_ALL_LIGATURES)
 
 
-with open(os.path.join(os.path.dirname(__file__), '__version__.py')) as fh:
-    exec(fh.read())
+__version__ = '2.1.2'
