@@ -5,11 +5,16 @@ from setuptools import setup
 
 import os
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(
     name="arabic_reshaper",
     description=("Reconstruct Arabic sentences to be used in"
                  " applications that don't support Arabic"),
-    version='2.1.2',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    version='2.1.3',
     platforms="ALL",
     license="MIT",
     packages=['arabic_reshaper'],
@@ -25,7 +30,6 @@ setup(
     maintainer="Abdullah Diab",
     maintainer_email="mpcabd@gmail.com",
     package_dir={'arabic_reshaper': 'arabic_reshaper'},
-    package_data={'arabic_reshaper': ['default-config.ini']},
     test_suite='arabic_reshaper.tests',
     include_package_data=True,
     keywords="arabic shaping reshaping reshaper",

@@ -248,7 +248,7 @@ https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
 
-### 2.1.2
+### 2.1.3
 
 * Remove dependency on `__version__.py` and `default-config.ini` files, as they were causing problems for people who package their apps using pyinstaller or buildozer.
 
