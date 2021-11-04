@@ -238,6 +238,35 @@ class ArabicReshaper(object):
 
         return ''.join(result)
 
+    def _reversed_letters(self):
+        reversed_letters = {}
+        for k, v in self.letters.items():
+            [reversed_letters.update({char_: k}) for char_ in v if char_]
+
+        return reversed_letters
+
+    def reverse_reshape(self, text):
+        result = []
+        reversed_letters = self._reversed_letters()
+
+        for char_ in text:
+            if char_ in self.letters.keys():
+                result.append(char_)
+                continue
+
+            # a = [k for k, v in self.letters.items() if char_ in v]
+            #
+            # if not a:
+            #     result.append(char_)
+            #     continue
+            #
+            # result.append(a[0])
+
+            result.append(reversed_letters.get(char_, char_))
+
+        return "".join(result)
+
 
 default_reshaper = ArabicReshaper()
 reshape = default_reshaper.reshape
+reverse_reshape = default_reshaper.reverse_reshape

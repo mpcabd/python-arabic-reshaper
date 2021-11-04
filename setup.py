@@ -14,7 +14,7 @@ setup(
                  " applications that don't support Arabic"),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version='2.1.3',
+    version='2.2.3',
     platforms="ALL",
     license="MIT",
     packages=['arabic_reshaper'],

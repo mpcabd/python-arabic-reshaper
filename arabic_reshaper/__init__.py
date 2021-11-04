@@ -1,6 +1,6 @@
 import os
 
-from .arabic_reshaper import reshape, default_reshaper, ArabicReshaper
+from .arabic_reshaper import reshape, default_reshaper, ArabicReshaper, reverse_reshape
 from .reshaper_config import (config_for_true_type_font,
                               ENABLE_NO_LIGATURES,
                               ENABLE_SENTENCES_LIGATURES,
@@ -9,4 +9,4 @@ from .reshaper_config import (config_for_true_type_font,
                               ENABLE_ALL_LIGATURES)
 
 
-__version__ = '2.1.3'
+__version__ = '2.2.3'
