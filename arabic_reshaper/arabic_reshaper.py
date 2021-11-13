@@ -288,7 +288,7 @@ class ArabicReshaper(object):
 
         return reversed_ligatures
 
-    def reverse_reshape(self, text: str) -> str:
+    def unreshape(self, text: str) -> str:
         """
         This is for reshaping from a reshaped text to original one
         It iterates over each char of text
@@ -343,4 +343,4 @@ class ArabicReshaper(object):
 
 default_reshaper = ArabicReshaper()
 reshape = default_reshaper.reshape
-reverse_reshape = default_reshaper.reverse_reshape
+unreshape = default_reshaper.unreshape
