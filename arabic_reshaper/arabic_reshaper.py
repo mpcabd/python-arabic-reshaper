@@ -238,7 +238,7 @@ class ArabicReshaper(object):
 
         return ''.join(result)
 
-    def _reversed_letters(self):
+    def _reversed_letters(self) -> dict:
         """
         Declared letters are for reshaping by default. This if for reversing declared letters and preparing them
             for reverse reshaping
@@ -255,13 +255,13 @@ class ArabicReshaper(object):
 
         # example for k: '\u0626'
         # example for v: ('\uFE89', '\uFE8B', '\uFE8C', '\uFE8A'). so v is a tuple
-        for k, v in self.letters.items():
-            # Add char_ and its normal form as a dict, if char_ was not null
-            [reversed_letters.update({char_: k}) for char_ in v if char_]
+        for original_form, reshaped_form in self.letters.items():
+            # Add char and its normal form as a dict, if char was not null (there is cases that char is null)
+            [reversed_letters.update({char: original_form}) for char in reshaped_form if char]
 
         return reversed_letters
 
-    def _reversed_ligatures(self):
+    def _reversed_ligatures(self) -> dict:
         """
         Declared ligatures are for reshaping by default. This if for reversing declared ligatures and preparing them
             for reverse reshaping
@@ -283,8 +283,8 @@ class ArabicReshaper(object):
         # title example: 'ARABIC LIGATURE SAD WITH HAH'
         # ligature example: ('\u0635\u062D', ('\uFC20', '\uFCB1', '', ''))
         for title, ligature in LIGATURES:
-            [reversed_ligatures.update({char_: ligature[original_text]}) for
-             char_ in ligature[reshaped_text] if char_]
+            [reversed_ligatures.update({char: ligature[original_text]}) for
+             char in ligature[reshaped_text] if char]
 
         return reversed_ligatures
 
@@ -306,37 +306,37 @@ class ArabicReshaper(object):
         reversed_letters = self._reversed_letters()
         reversed_ligatures = self._reversed_ligatures()
 
-        for index, char_ in enumerate(text_list):
+        for index, char in enumerate(text_list):
             # Checking if char_ is in original shape letters list and has not changed during reshape
-            if char_ in self.letters.keys():
-                result.append(char_)
+            if char in self.letters.keys():
+                result.append(char)
                 continue
 
             # Checking if char_ is a special character
-            if char_ in SPECIAL_LETTERS.keys():
+            if char in SPECIAL_LETTERS.keys():
                 next_char = text_list[index+1]
                 next_next_char = text_list[index+2]
 
                 # Checking if two following chars are harakat. in that case, first harakat should be placed in middle
                 # of special chars
                 if HARAKAT_RE.match(next_char) and HARAKAT_RE.match(next_next_char):
-                    result.append(next_char.join(list(SPECIAL_LETTERS.get(char_))))
+                    result.append(next_char.join(list(SPECIAL_LETTERS.get(char))))
 
                     # Omitting first harakat
                     text_list[index+1] = ''
 
                 else:
-                    result.append("".join(list(SPECIAL_LETTERS.get(char_))))
+                    result.append("".join(list(SPECIAL_LETTERS.get(char))))
 
                 continue
 
             # Checking if char_ is in ligatures
-            if char_ in reversed_ligatures:
-                result.append(reversed_ligatures[char_])
+            if char in reversed_ligatures:
+                result.append(reversed_ligatures[char])
                 continue
 
             # If couldn't find char is letters, append char itself
-            result.append(reversed_letters.get(char_, char_))
+            result.append(reversed_letters.get(char, char))
 
         return "".join(result)
 
