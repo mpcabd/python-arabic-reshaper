@@ -48,7 +48,7 @@ If you're using Anaconda you can use
 
 ## Usage
 
-```
+```python
 import arabic_reshaper
 
 text_to_be_reshaped = 'اللغة العربية رائعة'
@@ -62,7 +62,7 @@ the text for sure.
 
 For this example to work you need to run `pip install --upgrade arabic-reshaper python-bidi pillow`
 
-```
+```python
 
 import arabic_reshaper
 
@@ -143,7 +143,7 @@ Instead of directly using `arabic_reshaper.reshape` function, define an
 instance of `arabic_reshaper.ArabicReshaper`, and pass your config dictionary
 to its constructor's `configuration` parameter like this:
 
-```
+```python
 from arabic_reshaper import ArabicReshaper
 configuration = {
     'delete_harakat': False,
@@ -163,7 +163,7 @@ then save it somewhere in your project, and then you can tell the reshaper
 to use your new config file, just pass the path to your config file to its
 constructor's `configuration_file` parameter like this:
 
-```
+```python
 from arabic_reshaper import ArabicReshaper
 reshaper = ArabicReshaper(configuration_file='/path/to/your/config.ini')
 text_to_be_reshaped = 'سعر المنتج ١٥٠ ر' + 'يال'  # had to split the string for display
