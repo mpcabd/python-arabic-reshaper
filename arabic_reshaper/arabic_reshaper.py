@@ -15,7 +15,7 @@ from itertools import repeat
 
 from .ligatures import LIGATURES
 from .reshaper_config import auto_config
-from .letters import (UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC,
+from .letters import (UNSHAPED, ISOLATED, TATWEEL, ZWJ, LETTERS_ARABIC, SPECIAL_LETTERS,
                       LETTERS_ARABIC_V2, LETTERS_KURDISH, FINAL,
                       INITIAL, MEDIAL, connects_with_letters_before_and_after,
                       connects_with_letter_before, connects_with_letter_after)
@@ -152,8 +152,8 @@ class ArabicReshaper(object):
                         previous_letter[LETTER], self.letters):
                     output.append((letter, isolated_form))
                 elif (previous_letter[FORM] == FINAL and not
-                      connects_with_letters_before_and_after(
-                          previous_letter[LETTER], self.letters
+                connects_with_letters_before_and_after(
+                    previous_letter[LETTER], self.letters
                 )):
                     output.append((letter, isolated_form))
                 elif previous_letter[FORM] == isolated_form:
@@ -238,6 +238,109 @@ class ArabicReshaper(object):
 
         return ''.join(result)
 
+    def _reversed_letters(self) -> dict:
+        """
+        Declared letters are for reshaping by default. This if for reversing declared letters and preparing them
+            for reverse reshaping
+        For example assume that we have a declared letter like: '\u0626': ('\uFE89', '\uFE8B', '\uFE8C', '\uFE8A')
+        We need to reverse it and change it to a dict like: {
+                                                                '\uFE89': '\u0626',
+                                                                '\uFE8B': '\u0626',
+                                                                '\uFE8C': '\u0626',
+                                                                '\uFE8A': '\u0626',
+                                                            }
+        Now with this reversed letter dict, we can change char '\uFE89' to '\u0626' in text easily
+        """
+        reversed_letters = {}
+
+        # example for k: '\u0626'
+        # example for v: ('\uFE89', '\uFE8B', '\uFE8C', '\uFE8A'). so v is a tuple
+        for original_form, reshaped_form in self.letters.items():
+            # Add char and its normal form as a dict, if char was not null (there is cases that char is null)
+            [reversed_letters.update({char: original_form}) for char in reshaped_form if char]
+
+        return reversed_letters
+
+    def _reversed_ligatures(self) -> dict:
+        """
+        Declared ligatures are for reshaping by default. This if for reversing declared ligatures and preparing them
+            for reverse reshaping
+        For example assume that we have a declared ligatures like: ('ARABIC LIGATURE SAD WITH HAH', (
+                                                                        '\u0635\u062D', ('\uFC20', '\uFCB1', '', ''),
+                                                                    )),
+        We need to reverse it and change it to a dict like: {
+                                                                '\uFC20': '\u0635\u062D',
+                                                                '\uFCB1': '\u0635\u062D',
+                                                            }
+        Now with this reversed ligatures dict, we can change char '\uFC20' to '\u0635\u062D' in text easily
+        Actually first element of declared ligature would be ignored
+        """
+        original_text = 0
+        reshaped_text = 1
+
+        reversed_ligatures = {}
+
+        # title example: 'ARABIC LIGATURE SAD WITH HAH'
+        # ligature example: ('\u0635\u062D', ('\uFC20', '\uFCB1', '', ''))
+        for title, ligature in LIGATURES:
+            [reversed_ligatures.update({char: ligature[original_text]}) for
+             char in ligature[reshaped_text] if char]
+
+        return reversed_ligatures
+
+    def unreshape(self, text: str) -> str:
+        """
+        This is for reshaping from a reshaped text to original one
+        It iterates over each char of text
+        First checks if that char exists in original chars list. If that's so,
+            it means that char has not changed during reshape process and is equal to it's original shape. So that
+            would be appended to result without change
+        Second, checks if char is in SPECIAL_LETTERS. these letters are those which have generated during reshaping
+            process, and need to get replaced with their two chars
+        Third, checks if char is in ligatures. If that's so, would replace with original text
+        And finally, if any of mentioned conditions didn't meet, would try to find original shape of char, in
+            reversed_letters
+        """
+        text_list = list(text)
+        result = []
+        reversed_letters = self._reversed_letters()
+        reversed_ligatures = self._reversed_ligatures()
+
+        for index, char in enumerate(text_list):
+            # Checking if char_ is in original shape letters list and has not changed during reshape
+            if char in self.letters.keys():
+                result.append(char)
+                continue
+
+            # Checking if char_ is a special character
+            if char in SPECIAL_LETTERS.keys():
+                next_char = text_list[index+1]
+                next_next_char = text_list[index+2]
+
+                # Checking if two following chars are harakat. in that case, first harakat should be placed in middle
+                # of special chars
+                if HARAKAT_RE.match(next_char) and HARAKAT_RE.match(next_next_char):
+                    result.append(next_char.join(list(SPECIAL_LETTERS.get(char))))
+
+                    # Omitting first harakat
+                    text_list[index+1] = ''
+
+                else:
+                    result.append("".join(list(SPECIAL_LETTERS.get(char))))
+
+                continue
+
+            # Checking if char_ is in ligatures
+            if char in reversed_ligatures:
+                result.append(reversed_ligatures[char])
+                continue
+
+            # If couldn't find char is letters, append char itself
+            result.append(reversed_letters.get(char, char))
+
+        return "".join(result)
+
 
 default_reshaper = ArabicReshaper()
 reshape = default_reshaper.reshape
+unreshape = default_reshaper.unreshape

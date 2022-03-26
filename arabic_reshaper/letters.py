@@ -508,6 +508,18 @@ LETTERS_KURDISH = {
     ZWJ: (ZWJ, ZWJ, ZWJ, ZWJ),
 }
 
+# Special letters are like lam with alef with hamza. for reverse reshaping, we need this to reverse from reshaped
+# lam with alef to regular one
+SPECIAL_LETTERS = {
+    # lam alef
+    '\ufefc': ('\u0644', '\u0627'),
+    # lam with alef with hamza
+    '\ufef7': ('\u0644', '\u0623'),
+    # lam with alef with mad
+    '\ufef5': ('\u0644', '\u0622'),
+}
+
+
 def connects_with_letter_before(letter,LETTERS):
     if letter not in LETTERS:
         return False
