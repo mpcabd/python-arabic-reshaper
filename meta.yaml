@@ -1,6 +1,6 @@
 {% set name = "arabic-reshaper" %}
 {% set pypi_name = "arabic_reshaper" %}
-{% set version = "2.1.1" %}
+{% set version = "2.1.4" %}
 
 package:
   name: "{{ name|lower }}"
