@@ -20,7 +20,7 @@ requirements:
   host:
     - configparser;       # [ py < 3 ]
     - fonttools >=4.0     # [ py > 3 ]
-    - fonttools >=3.0<4.0 # [ py < 3 ]
+    - fonttools >=3.0,<4.0 # [ py < 3 ]
     - future
     - pip
     - python
@@ -28,7 +28,7 @@ requirements:
   run:
     - configparser;       # [ py < 3 ]
     - fonttools >=4.0     # [ py > 3 ]
-    - fonttools >=3.0<4.0 # [ py < 3 ]
+    - fonttools >=3.0,<4.0 # [ py < 3 ]
     - future
     - python
     - setuptools

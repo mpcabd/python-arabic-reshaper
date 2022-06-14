@@ -23,7 +23,7 @@ setup(
                       'setuptools'],
     extras_require={
         'with-fonttools': ['fonttools>=4.0; python_version >="3"',
-                           'fonttools>=3.0<4.0; python_version <"3"']
+                           'fonttools>=3.0,<4.0; python_version <"3"']
     },
     author="Abdullah Diab",
     author_email="mpcabd@gmail.com",
