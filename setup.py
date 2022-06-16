@@ -14,7 +14,7 @@ setup(
                  " applications that don't support Arabic"),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version='2.1.3',
+    version='2.1.4',
     platforms="ALL",
     license="MIT",
     packages=['arabic_reshaper'],
@@ -23,7 +23,7 @@ setup(
                       'setuptools'],
     extras_require={
         'with-fonttools': ['fonttools>=4.0; python_version >="3"',
-                           'fonttools>=3.0<4.0; python_version <"3"']
+                           'fonttools>=3.0,<4.0; python_version <"3"']
     },
     author="Abdullah Diab",
     author_email="mpcabd@gmail.com",
