@@ -12,7 +12,6 @@ from __future__ import unicode_literals
 import os
 
 from configparser import ConfigParser
-from pkg_resources import resource_filename
 
 from .letters import (UNSHAPED, ISOLATED, LETTERS_ARABIC)
 from .ligatures import (SENTENCES_LIGATURES,

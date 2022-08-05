@@ -19,8 +19,7 @@ setup(
     license="MIT",
     packages=['arabic_reshaper'],
     install_requires=['configparser; python_version <"3"',
-                      'future',
-                      'setuptools'],
+                      'future'],
     extras_require={
         'with-fonttools': ['fonttools>=4.0; python_version >="3"',
                            'fonttools>=3.0,<4.0; python_version <"3"']
