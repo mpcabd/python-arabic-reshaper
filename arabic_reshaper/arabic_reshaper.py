@@ -235,8 +235,8 @@ class ArabicReshaper(object):
             if not delete_harakat:
                 if i in positions_harakat:
                     result.extend(positions_harakat[i])
-
-        return ''.join(result)
+        # adding "[::-1]" to auto reverse the result to be from right to left, instead of making it in separated line of code after using the library
+        return ''.join(result[::-1])
 
 
 default_reshaper = ArabicReshaper()
