@@ -178,6 +178,8 @@ LETTERS_ARABIC = {
     '\u06D2': ('\uFBAE', '', '', '\uFBAF'),
     # ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
     '\u06D3': ('\uFBB0', '', '', '\uFBB1'),
+    # ARABIC LETTER AE for Uyghur, Kazakh, Kyrgyz
+    '\u06d5': ('\u06d5', '', '', '\uFEEA'),
 
     # ZWJ
     ZWJ: (ZWJ, ZWJ, ZWJ, ZWJ),
