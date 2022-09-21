@@ -19,7 +19,7 @@ matrix:
     - python: "3.9"
       env:
         - TOX_ENV=py39
-    - python: "3.10"
+    - python: "3.10-dev"
       env:
         - TOX_ENV=py310
 script: tox -e $TOX_ENV
