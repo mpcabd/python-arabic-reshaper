@@ -1,7 +1,7 @@
 language: python
 install:
   - pip install tox
-  - pip install -U importlib-metadata setuptools pip
+  - pip install -U setuptools pip
   - pip install -e .
 matrix:
   include:
@@ -14,6 +14,8 @@ matrix:
     - python: "3.7"
       env:
         - TOX_ENV=py37
+      install:
+        - pip install -U importlib-metadata
     - python: "3.8"
       env:
         - TOX_ENV=py38
