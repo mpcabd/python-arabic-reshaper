@@ -1,6 +1,7 @@
 language: python
 install:
   - pip install tox
+  - pip install -U importlib-metadata setuptools pip
   - pip install -e .
 matrix:
   include:
