@@ -3,47 +3,40 @@
 {% set version = "2.1.4" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  git_url: https://github.com/mpcabd/python-arabic-reshaper.git
-  git_rev: "v{{ version }}"
-  git_depth: 1
+  url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/arabic_reshaper-{{ version }}.tar.gz
+  sha256: e84b3b0ad8eae395641c94d3010b53bfed2c2b1ab80f25eb8cdc01019ddf6426
 
 build:
-  noarch: generic
+  noarch: python
+  script: {{ PYTHON }} -m pip install .[with-fonttools] -vv
   number: 0
-  script: "{{ PYTHON }} -m pip install .[with-fonttools] -vv"
 
 requirements:
   host:
-    - configparser;       # [ py < 3 ]
-    - fonttools >=4.0     # [ py > 3 ]
-    - fonttools >=3.0,<4.0 # [ py < 3 ]
-    - future
+    - python
     - pip
-    - python
-    - setuptools
   run:
-    - configparser;       # [ py < 3 ]
-    - fonttools >=4.0     # [ py > 3 ]
-    - fonttools >=3.0,<4.0 # [ py < 3 ]
-    - future
     - python
-    - setuptools
+    - configparser  # [py<3]
+    - future
 
 test:
   imports:
     - arabic_reshaper
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
-  home: "https://mpcabd.xyz/python-arabic-text-reshaper/"
+  home: https://github.com/mpcabd/python-arabic-reshaper/
+  summary: Reconstruct Arabic sentences to be used in applications that don't support Arabic
   license: MIT
-  license_family: MIT
-  summary: "Reconstruct Arabic sentences to be used in applications that don't support Arabic"
-  doc_url: "https://github.com/mpcabd/python-arabic-reshaper/"
-  dev_url: "https://github.com/mpcabd/python-arabic-reshaper/"
+  license_file: LICENSE
 
 extra:
   recipe-maintainers:
