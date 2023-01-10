@@ -28,7 +28,8 @@ matrix:
       env:
         - TOX_ENV=py310
       install:
-        - pip install -U tox setuptools
+        - pip uninstall -y setuptools
+        - pip install -U tox setuptools wheel
         - pip install -e .
     - python: "3.11"
       env:
