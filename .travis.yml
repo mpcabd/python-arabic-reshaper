@@ -6,18 +6,22 @@ install:
 matrix:
   include:
     - python: "3.6"
+      dist: "xenial"
       env:
         - TOX_ENV=py36
     - python: "3.7"
+      dist: "xenial"
       env:
         - TOX_ENV=py37
       install:
       - pip install -U tox importlib-metadata
       - pip install -e .
     - python: "3.8"
+      dist: "xenial"
       env:
         - TOX_ENV=py38
     - python: "3.9"
+      dist: "xenial"
       env:
         - TOX_ENV=py39
     - python: "3.10"
