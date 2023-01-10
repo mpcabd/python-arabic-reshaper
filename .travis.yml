@@ -1,4 +1,5 @@
 language: python
+dist: jammy
 install:
   - pip install -U tox
   - pip install -e .
