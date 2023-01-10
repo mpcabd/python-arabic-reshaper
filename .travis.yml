@@ -4,9 +4,6 @@ install:
   - pip install -e .
 matrix:
   include:
-    - python: "2.7"
-      env:
-       - TOX_ENV=py27
     - python: "3.6"
       env:
         - TOX_ENV=py36
@@ -22,7 +19,10 @@ matrix:
     - python: "3.9"
       env:
         - TOX_ENV=py39
-    - python: "3.10-dev"
+    - python: "3.10"
       env:
         - TOX_ENV=py310
+    - python: "3.11"
+      env:
+        - TOX_ENV=py311
 script: tox -e $TOX_ENV

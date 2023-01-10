@@ -5,7 +5,7 @@
 Reconstruct Arabic sentences to be used in applications that don't support
 Arabic script.
 
-Works with Python 2.x and 3.x
+Works with Python 3.x
 
 ## Description
 
@@ -247,6 +247,10 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 3.0.0
+* Stop supporting Python 2.7
+* Remove dependency on `future`. See #88.
 
 ### 2.1.4
 

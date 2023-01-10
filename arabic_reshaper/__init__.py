@@ -9,4 +9,4 @@ from .reshaper_config import (config_for_true_type_font,
                               ENABLE_ALL_LIGATURES)
 
 
-__version__ = '2.1.4'
+__version__ = '3.0.0'

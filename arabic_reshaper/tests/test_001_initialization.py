@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import unittest
 import arabic_reshaper
 import arabic_reshaper.ligatures

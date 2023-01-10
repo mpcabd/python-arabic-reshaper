@@ -7,8 +7,6 @@
 # Email: mpcabd@gmail.com
 # Website: http://mpcabd.xyz
 
-from __future__ import unicode_literals
-
 import os
 
 from configparser import ConfigParser

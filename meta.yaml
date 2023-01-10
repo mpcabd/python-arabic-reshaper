@@ -1,6 +1,6 @@
 {% set name = "arabic-reshaper" %}
 {% set pypi_name = "arabic_reshaper" %}
-{% set version = "2.1.4" %}
+{% set version = "3.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -21,8 +21,6 @@ requirements:
     - pip
   run:
     - python
-    - configparser  # [py<3]
-    - future
 
 test:
   imports:

@@ -7,8 +7,6 @@
 # Email: mpcabd@gmail.com
 # Website: http://mpcabd.xyz
 
-from __future__ import unicode_literals
-
 import re
 
 from itertools import repeat
@@ -52,7 +50,6 @@ class ArabicReshaper(object):
     Check these links for information on the configuration files format:
 
     * Python 3: https://docs.python.org/3/library/configparser.html
-    * Python 2: https://docs.python.org/2/library/configparser.html
 
     See the default configuration file :file:`default-config.ini` for details
     on how to configure your reshaper.

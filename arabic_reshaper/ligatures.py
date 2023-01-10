@@ -19,7 +19,6 @@
 #   3. Letters
 # This way we make sure we replace the longest ligatures first
 
-from __future__ import unicode_literals
 from itertools import chain
 
 SENTENCES_LIGATURES = (
