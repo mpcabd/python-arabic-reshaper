@@ -19,6 +19,7 @@ setup(
     platforms='ALL',
     license='MIT',
     packages=['arabic_reshaper'],
+    install_requires=['regex'],
     extras_require={
         'with-fonttools': ['fonttools>=4.0']
     },

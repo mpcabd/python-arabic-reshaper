@@ -7,8 +7,9 @@
 # Email: mpcabd@gmail.com
 # Website: http://mpcabd.xyz
 
-import re
+import regex as re
 
+from collections import defaultdict
 from itertools import repeat
 
 from .ligatures import LIGATURES
@@ -69,30 +70,37 @@ class ArabicReshaper(object):
             self.letters = LETTERS_ARABIC
 
     @property
-    def _ligatures_re(self):
-        if not hasattr(self, '__ligatures_re'):
-            patterns = []
-            re_group_index_to_ligature_forms = {}
-            index = 0
+    def _ligature_patterns_by_length(self):
+        if not hasattr(self, '__ligature_patterns_by_length'):
+            patterns_by_length = defaultdict(list)
+            index_to_forms_by_length = defaultdict(dict)
+            index_by_length = defaultdict(lambda: 0)
             FORMS = 1
             MATCH = 0
             for ligature_record in LIGATURES:
                 ligature, replacement = ligature_record
                 if not self.configuration.getboolean(ligature):
                     continue
-                re_group_index_to_ligature_forms[index] = replacement[FORMS]
-                patterns.append('({})'.format(replacement[MATCH]))
-                index += 1
-            self._re_group_index_to_ligature_forms = (
-                re_group_index_to_ligature_forms
-            )
-            self.__ligatures_re = re.compile('|'.join(patterns), re.UNICODE)
-        return self.__ligatures_re
+                length = len(replacement[MATCH])
+                index_to_forms_by_length[length][index_by_length[length]] = replacement[FORMS]
+                patterns_by_length[length].append('({})'.format(replacement[MATCH]))
+                index_by_length[length] += 1
+            self._index_to_forms_by_length = index_to_forms_by_length
+            for l, patterns in patterns_by_length.items():
+                patterns_by_length[l] = re.compile('|'.join(patterns), re.UNICODE)
+            self.__ligature_patterns_by_length = patterns_by_length
+        return self.__ligature_patterns_by_length
 
-    def _get_ligature_forms_from_re_group_index(self, group_index):
-        if not hasattr(self, '_re_group_index_to_ligature_forms'):
-            return self._ligatures_re
-        return self._re_group_index_to_ligature_forms[group_index]
+    @property
+    def _ligatures_lengths_sorted(self):
+        if not hasattr(self, '__ligatures_lengths_sorted'):
+            self.__ligatures_lengths_sorted = tuple(sorted(self._ligature_patterns_by_length.keys(), reverse=True))
+        return self.__ligatures_lengths_sorted
+
+    def _get_ligature_forms_from_re_group_index(self, match_length, group_index):
+        if not hasattr(self, '_index_to_forms_by_length'):
+            t = self._ligature_patterns_by_length
+        return self._index_to_forms_by_length[match_length][group_index]
 
     def reshape(self, text):
         if not text:
@@ -183,41 +191,53 @@ class ArabicReshaper(object):
             if delete_tatweel:
                 text = text.replace(TATWEEL, '')
 
-            for match in re.finditer(self._ligatures_re, text):
-                group_index = next((
-                    i for i, group in enumerate(match.groups()) if group
-                ), -1)
-                forms = self._get_ligature_forms_from_re_group_index(
-                    group_index
-                )
-                a, b = match.span()
-                a_form = output[a][FORM]
-                b_form = output[b - 1][FORM]
-                ligature_form = None
+            ligatures_indices = set()
 
-                # +-----------+----------+---------+---------+----------+
-                # | a   \   b | ISOLATED | INITIAL | MEDIAL  | FINAL    |
-                # +-----------+----------+---------+---------+----------+
-                # | ISOLATED  | ISOLATED | INITIAL | INITIAL | ISOLATED |
-                # | INITIAL   | ISOLATED | INITIAL | INITIAL | ISOLATED |
-                # | MEDIAL    | FINAL    | MEDIAL  | MEDIAL  | FINAL    |
-                # | FINAL     | FINAL    | MEDIAL  | MEDIAL  | FINAL    |
-                # +-----------+----------+---------+---------+----------+
+            for match_length in self._ligatures_lengths_sorted:
+                ligatures_re = self._ligature_patterns_by_length[match_length]
 
-                if a_form in (isolated_form, INITIAL):
-                    if b_form in (isolated_form, FINAL):
-                        ligature_form = ISOLATED
+                for match in re.finditer(ligatures_re, text, overlapped=True):
+                    group_index = next((
+                        i for i, group in enumerate(match.groups()) if group
+                    ), -1)
+                    forms = self._get_ligature_forms_from_re_group_index(
+                        match_length,
+                        group_index
+                    )
+                    a, b = match.span()
+
+                    # Skip letters that have been already used in ligatures
+                    if next(filter(lambda i: i in ligatures_indices, range(a, b)), None):
+                        continue
+
+                    a_form = output[a][FORM]
+                    b_form = output[b - 1][FORM]
+                    ligature_form = None
+
+                    # +-----------+----------+---------+---------+----------+
+                    # | a   \   b | ISOLATED | INITIAL | MEDIAL  | FINAL    |
+                    # +-----------+----------+---------+---------+----------+
+                    # | ISOLATED  | ISOLATED | INITIAL | INITIAL | ISOLATED |
+                    # | INITIAL   | ISOLATED | INITIAL | INITIAL | ISOLATED |
+                    # | MEDIAL    | FINAL    | MEDIAL  | MEDIAL  | FINAL    |
+                    # | FINAL     | FINAL    | MEDIAL  | MEDIAL  | FINAL    |
+                    # +-----------+----------+---------+---------+----------+
+
+                    if a_form in (isolated_form, INITIAL):
+                        if b_form in (isolated_form, FINAL):
+                            ligature_form = ISOLATED
+                        else:
+                            ligature_form = INITIAL
                     else:
-                        ligature_form = INITIAL
-                else:
-                    if b_form in (isolated_form, FINAL):
-                        ligature_form = FINAL
-                    else:
-                        ligature_form = MEDIAL
-                if not forms[ligature_form]:
-                    continue
-                output[a] = (forms[ligature_form], NOT_SUPPORTED)
-                output[a+1:b] = repeat(('', NOT_SUPPORTED), b - 1 - a)
+                        if b_form in (isolated_form, FINAL):
+                            ligature_form = FINAL
+                        else:
+                            ligature_form = MEDIAL
+                    if not forms[ligature_form]:
+                        continue
+                    output[a] = (forms[ligature_form], NOT_SUPPORTED)
+                    output[a+1:b] = repeat(('', NOT_SUPPORTED), b - 1 - a)
+                    ligatures_indices.update(range(a, b))
 
         result = []
         if not delete_harakat and -1 in positions_harakat:
