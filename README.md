@@ -18,7 +18,7 @@ So when you try to print text written in Arabic script in an application
 – or a library – that doesn’t support Arabic you’re pretty likely to end up
 with something that looks like this:
 
-![Arabic text written from left to right with no reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-1.png)
+![Arabic text written from left to right with no reshaping](https://mpcabd.xyz/wp-content/uploads/2012/05/arabic-1.png)
 
 We have two problems here, first, the characters are in the isolated form,
 which means that every character is rendered regardless of its surroundings,
@@ -30,13 +30,13 @@ implemented purely in Python in
 [python-bidi](https://github.com/MeirKriheli/python-bidi).
 If you use it you’ll end up with something that looks like this:
 
-![Arabic text written from right to left with no reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-6.png)
+![Arabic text written from right to left with no reshaping](https://mpcabd.xyz/wp-content/uploads/2012/05/arabic-6.png)
 
 The only issue left to solve is to reshape those characters and replace them
 with their correct shapes according to their surroundings. Using this library
 helps with the reshaping so we can get the proper result like this:
 
-![Arabic text written from right to left with reshaping](http://mpcabd.xyz/wp-content/uploads/2012/05/arabic-3.png)
+![Arabic text written from right to left with reshaping](https://mpcabd.xyz/wp-content/uploads/2012/05/arabic-3.png)
 
 ## Installation
 
