@@ -94,7 +94,7 @@ class ArabicReshaper(object):
             return self._ligatures_re
         return self._re_group_index_to_ligature_forms[group_index]
 
-    def reshape(self, text):
+    def reshape(self, text, return_char_forms=False):
         if not text:
             return ''
 
@@ -233,7 +233,10 @@ class ArabicReshaper(object):
                 if i in positions_harakat:
                     result.extend(positions_harakat[i])
 
-        return ''.join(result)
+        if return_char_forms:
+            return ''.join(result), output
+        else:
+            return ''.join(result)
 
 
 default_reshaper = ArabicReshaper()
