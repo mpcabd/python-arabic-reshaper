@@ -9,6 +9,7 @@
 
 import re
 
+from functools import cached_property
 from itertools import repeat
 
 from .ligatures import LIGATURES
@@ -35,7 +36,7 @@ HARAKAT_RE = re.compile(
 )
 
 
-class ArabicReshaper(object):
+class ArabicReshaper:
     """
     A class for Arabic reshaper, it allows for fine-tune configuration over the
     API.
@@ -56,7 +57,7 @@ class ArabicReshaper(object):
     """
 
     def __init__(self, configuration=None, configuration_file=None):
-        super(ArabicReshaper, self).__init__()
+        super().__init__()
 
         self.configuration = auto_config(configuration, configuration_file)
         self.language = self.configuration.get('language')
@@ -68,33 +69,25 @@ class ArabicReshaper(object):
         else:
             self.letters = LETTERS_ARABIC
 
-    @property
+    @cached_property
     def _ligatures_re(self):
-        if not hasattr(self, '__ligatures_re'):
-            patterns = []
-            re_group_index_to_ligature_forms = {}
-            index = 0
-            FORMS = 1
-            MATCH = 0
-            for ligature_record in LIGATURES:
-                ligature, replacement = ligature_record
-                if not self.configuration.getboolean(ligature):
-                    continue
-                re_group_index_to_ligature_forms[index] = replacement[FORMS]
-                patterns.append('({})'.format(replacement[MATCH]))
-                index += 1
-            self._re_group_index_to_ligature_forms = (
-                re_group_index_to_ligature_forms
-            )
-            self.__ligatures_re = re.compile('|'.join(patterns), re.UNICODE)
-        return self.__ligatures_re
+        patterns = []
+        self._re_group_index_to_ligature_forms = {}
+        index = 0
+        FORMS = 1
+        MATCH = 0
+        for ligature, replacement in LIGATURES:
+            if not self.configuration.getboolean(ligature):
+                continue
+            self._re_group_index_to_ligature_forms[index] = replacement[FORMS]
+            patterns.append(f'({replacement[MATCH]})')
+            index += 1
+        return re.compile('|'.join(patterns), re.UNICODE)
 
     def _get_ligature_forms_from_re_group_index(self, group_index):
-        if not hasattr(self, '_re_group_index_to_ligature_forms'):
-            return self._ligatures_re
         return self._re_group_index_to_ligature_forms[group_index]
 
-    def reshape(self, text):
+    def reshape(self, text: str) -> str:
         if not text:
             return ''
 
@@ -217,6 +210,8 @@ class ArabicReshaper(object):
                 if not forms[ligature_form]:
                     continue
                 output[a] = (forms[ligature_form], NOT_SUPPORTED)
+                # Pad the replaced positions with empty sentinels so that
+                # Harakat position indices remain aligned with the output list.
                 output[a+1:b] = repeat(('', NOT_SUPPORTED), b - 1 - a)
 
         result = []
