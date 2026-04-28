@@ -35,7 +35,7 @@ Homepage = "https://github.com/mpcabd/python-arabic-reshaper/"
 Repository = "https://github.com/mpcabd/python-arabic-reshaper/"
 
 [dependency-groups]
-dev = ["pytest>=8", "pytest-cov"]
+dev = ["pytest>=8", "pytest-cov", "fonttools>=4.0"]
 
 [tool.hatch.build]
 exclude = ["arabic_reshaper/tests"]

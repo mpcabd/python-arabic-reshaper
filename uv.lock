@@ -14,6 +14,7 @@ with-fonttools = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "fonttools" },
     { name = "pytest" },
     { name = "pytest-cov" },
 ]
@@ -24,6 +25,7 @@ provides-extras = ["with-fonttools"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "fonttools", specifier = ">=4.0" },
     { name = "pytest", specifier = ">=8" },
     { name = "pytest-cov" },
 ]
