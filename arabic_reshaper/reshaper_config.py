@@ -365,7 +365,10 @@ default_config = {
 }
 
 
-def auto_config(configuration=None, configuration_file=None):
+def auto_config(
+    configuration: dict | None = None,
+    configuration_file: str | None = None,
+):
     loaded_from_envvar = False
 
     configuration_parser = ConfigParser()
@@ -405,7 +408,7 @@ def auto_config(configuration=None, configuration_file=None):
     return configuration_parser['ArabicReshaper']
 
 
-def config_for_true_type_font(font_file_path, ligatures_config=ENABLE_ALL_LIGATURES):
+def config_for_true_type_font(font_file_path: str, ligatures_config: int = ENABLE_ALL_LIGATURES) -> dict:
     """Return a reshaper configuration dict tuned to the capabilities of a TrueType font.
 
     Inspects the font's cmap table to determine which positional Arabic letter

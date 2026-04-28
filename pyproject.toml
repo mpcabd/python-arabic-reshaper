@@ -42,6 +42,7 @@ exclude = ["arabic_reshaper/tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["arabic_reshaper/tests"]
+addopts = "--cov=arabic_reshaper --cov-report=term-missing"
 
 [tool.uv]
 package = true
