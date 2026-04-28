@@ -1,7 +1,0 @@
-include arabic_reshaper/__init__.py
-include arabic_reshaper/arabic_reshaper.py
-include arabic_reshaper/letters.py
-include arabic_reshaper/ligatures.py
-include arabic_reshaper/reshaper_config.py
-include README.md
-include LICENSE

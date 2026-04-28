@@ -248,6 +248,14 @@ https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
 
+### 3.0.1
+
+* Modernised packaging: migrated from `setuptools` to `hatchling` via `pyproject.toml`
+* Dropped support for Python < 3.10
+* Switched CI from Travis CI to GitHub Actions
+* Added type hints and improved test coverage for font configuration
+* Removed obsolete Anaconda publishing scripts
+
 ### 3.0.0
 * Stop supporting Python 2.7
 * Remove dependency on `future`. See #88.
