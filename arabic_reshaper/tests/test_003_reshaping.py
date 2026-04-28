@@ -28,8 +28,6 @@ class TestDefaultReshaping(unittest.TestCase):
 
 
         )
-        print(self.cases[0][0])
-
     def test_reshaping(self):
         _reshaping_test(self)
 

@@ -1,6 +1,6 @@
 ## Python Arabic Reshaper
 
-[![Build Status](https://app.travis-ci.com/mpcabd/python-arabic-reshaper.svg?branch=master)](https://app.travis-ci.com/mpcabd/python-arabic-reshaper)
+[![CI](https://github.com/mpcabd/python-arabic-reshaper/actions/workflows/ci.yml/badge.svg)](https://github.com/mpcabd/python-arabic-reshaper/actions/workflows/ci.yml)
 
 Reconstruct Arabic sentences to be used in applications that don't support
 Arabic script.
@@ -247,6 +247,14 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 3.0.1
+
+* Modernised packaging: migrated from `setuptools` to `hatchling` via `pyproject.toml`
+* Dropped support for Python < 3.10
+* Switched CI from Travis CI to GitHub Actions
+* Added type hints and improved test coverage for font configuration
+* Removed obsolete Anaconda publishing scripts
 
 ### 3.0.0
 * Stop supporting Python 2.7

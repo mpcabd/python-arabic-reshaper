@@ -22,6 +22,10 @@ try:
 except ImportError:
     with_font_config = False
 
+class ArabicReshaperConfigurationError(ValueError):
+    """Raised when the reshaper configuration is invalid or missing."""
+
+
 ENABLE_NO_LIGATURES = 0b000
 ENABLE_SENTENCES_LIGATURES = 0b001
 ENABLE_WORDS_LIGATURES = 0b010
@@ -361,7 +365,10 @@ default_config = {
 }
 
 
-def auto_config(configuration=None, configuration_file=None):
+def auto_config(
+    configuration: dict | None = None,
+    configuration_file: str | None = None,
+):
     loaded_from_envvar = False
 
     configuration_parser = ConfigParser()
@@ -378,14 +385,12 @@ def auto_config(configuration=None, configuration_file=None):
 
     if configuration_file:
         if not os.path.exists(configuration_file):
-            raise Exception(
-                'Configuration file {} not found{}.'.format(
-                    configuration_file,
-                    loaded_from_envvar and (
-                        ' it is set in your environment variable ' +
-                        'PYTHON_ARABIC_RESHAPER_CONFIGURATION_FILE'
-                    ) or ''
-                )
+            env_note = (
+                ' (set via PYTHON_ARABIC_RESHAPER_CONFIGURATION_FILE)'
+                if loaded_from_envvar else ''
+            )
+            raise ArabicReshaperConfigurationError(
+                f'Configuration file not found: {configuration_file}{env_note}'
             )
         configuration_parser.read((configuration_file,))
 
@@ -395,7 +400,7 @@ def auto_config(configuration=None, configuration_file=None):
         })
 
     if 'ArabicReshaper' not in configuration_parser:
-        raise ValueError(
+        raise ArabicReshaperConfigurationError(
             'Invalid configuration: '
             'A section with the name ArabicReshaper was not found'
         )
@@ -403,14 +408,32 @@ def auto_config(configuration=None, configuration_file=None):
     return configuration_parser['ArabicReshaper']
 
 
-def config_for_true_type_font(font_file_path,
-                              ligatures_config=ENABLE_ALL_LIGATURES):
+def config_for_true_type_font(font_file_path: str, ligatures_config: int = ENABLE_ALL_LIGATURES) -> dict:
+    """Return a reshaper configuration dict tuned to the capabilities of a TrueType font.
+
+    Inspects the font's cmap table to determine which positional Arabic letter
+    forms are present, and checks each ligature glyph so that only ligatures
+    the font actually supports are enabled.
+
+    Args:
+        font_file_path: Path to the .ttf/.otf font file.
+        ligatures_config: Bitmask of ENABLE_*_LIGATURES flags controlling which
+            ligature categories to probe. Defaults to ENABLE_ALL_LIGATURES.
+
+    Returns:
+        A configuration dict suitable for passing to ArabicReshaper().
+
+    Raises:
+        ImportError: If fonttools is not installed.
+        ArabicReshaperConfigurationError: If the font path is invalid.
+    """
     if not with_font_config:
-        raise Exception('fonttools not installed, ' +
-                        'install it then rerun this.\n' +
-                        '$ pip install arabic-teshaper[with-fonttools]')
+        raise ImportError(
+            'fonttools is not installed. '
+            'Install it with: pip install arabic-reshaper[with-fonttools]'
+        )
     if not font_file_path or not os.path.exists(font_file_path):
-        raise Exception('Invalid path to font file')
+        raise ArabicReshaperConfigurationError(f'Invalid path to font file: {font_file_path}')
     ttfont = TTFont(font_file_path)
     has_isolated = True
     for k, v in LETTERS_ARABIC.items():

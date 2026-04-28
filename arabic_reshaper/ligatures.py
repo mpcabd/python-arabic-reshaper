@@ -71,6 +71,7 @@ WORDS_LIGATURES = (
         '\u0648\u0633\u0644\u0645', ('\uFDF8', '', '', ''),
     )),
     ('RIAL SIGN', (
+        # Regex (not a literal string): matches both Farsi YEH (U+06CC) and Arabic YEH (U+064A).
         '\u0631[\u06CC\u064A]\u0627\u0644', ('\uFDFC', '', '', ''),
     )),
 )

@@ -47,3 +47,6 @@ venv/
 # ignore
 .ignore/
 .DS_Store
+
+# local test fonts — not committed
+fonts/

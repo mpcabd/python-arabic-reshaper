@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arabic-reshaper"
+version = "3.0.1"
+description = "Reconstruct Arabic sentences to be used in applications that do not support Arabic"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Abdullah Diab", email = "mpcabd@gmail.com" },
+]
+maintainers = [
+    { name = "Abdullah Diab", email = "mpcabd@gmail.com" },
+]
+keywords = ["arabic", "shaping", "reshaping", "reshaper"]
+classifiers = [
+    "Natural Language :: Arabic",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+with-fonttools = ["fonttools>=4.0"]
+
+[project.urls]
+Homepage = "https://github.com/mpcabd/python-arabic-reshaper/"
+Repository = "https://github.com/mpcabd/python-arabic-reshaper/"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-cov", "fonttools>=4.0"]
+
+[tool.hatch.build]
+exclude = ["arabic_reshaper/tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["arabic_reshaper/tests"]
+addopts = "--cov=arabic_reshaper --cov-report=term-missing"
+
+[tool.uv]
+package = true
