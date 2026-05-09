@@ -176,14 +176,17 @@ class ArabicReshaper:
             if delete_tatweel:
                 text = text.replace(TATWEEL, '')
 
-            for match in re.finditer(self._ligatures_re, text):
+            regex_start = 0
+            matchIt = re.finditer(self._ligatures_re, text)
+            match = next(matchIt, None)
+            while match:
                 group_index = next((
                     i for i, group in enumerate(match.groups()) if group
                 ), -1)
                 forms = self._get_ligature_forms_from_re_group_index(
                     group_index
                 )
-                a, b = match.span()
+                a, b = tuple(i+regex_start for i in match.span())
                 a_form = output[a][FORM]
                 b_form = output[b - 1][FORM]
                 ligature_form = None
@@ -208,11 +211,15 @@ class ArabicReshaper:
                     else:
                         ligature_form = MEDIAL
                 if not forms[ligature_form]:
+                    regex_start = a+1
+                    matchIt = re.finditer(self._ligatures_re, text[regex_start:])
+                    match = next(matchIt, None)
                     continue
                 output[a] = (forms[ligature_form], NOT_SUPPORTED)
                 # Pad the replaced positions with empty sentinels so that
                 # Harakat position indices remain aligned with the output list.
                 output[a+1:b] = repeat(('', NOT_SUPPORTED), b - 1 - a)
+                match = next(matchIt, None)
 
         result = []
         if not delete_harakat and -1 in positions_harakat:
