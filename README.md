@@ -57,8 +57,24 @@ reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 
 ### Example using PIL Image
 
-PIL Image does not support reshaping out of the box, so to draw Arabic text on an `Image` instance you would need to reshape
-the text for sure.
+PIL Image may or may not shape Arabic for you, and this decides whether you need this library
+at all — so check before following this example:
+
+```python
+from PIL import features
+features.check("raqm")   # True  -> Pillow shapes text itself; do NOT reshape (see below)
+                         # False -> Pillow does not shape; this example is what you want
+```
+
+Pillow can be built against [Raqm](https://github.com/HOST-Oman/libraqm), which uses HarfBuzz and
+FriBidi to do the shaping and the bidi reorder itself. Recent Pillow wheels ship with Raqm
+enabled, so this is now the common case.
+
+**When `features.check("raqm")` is `True`, applying `reshape()` and `get_display()` corrupts the
+text** — the shaping and the reorder happen twice. `مرحبا بكم` renders as `مكب ابحرم`: letters
+disconnected and word order reversed. Pass the original string straight to `ImageDraw.text()`.
+
+The example below is correct and still needed when `features.check("raqm")` is `False`.
 
 For this example to work you need to run `pip install --upgrade arabic-reshaper python-bidi pillow`
 
