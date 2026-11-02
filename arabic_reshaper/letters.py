@@ -468,6 +468,8 @@ LETTERS_KURDISH = {
     '\u06B1': ('\u06B1', '\uFB9C', '\uFB9D', '\uFB9B'),
     # ARABIC LETTER GUEH
     '\u06B3': ('\u06B3', '\uFB98', '\uFB99', '\uFB97'),
+    # KURDISH LETTER LAM WITH SMALL V
+    '\u06B5': ('\u06B5', '\uE008', '\uE009', '\uE007'),
     # ARABIC LETTER NOON GHUNNA
     '\u06BA': ('\u06BA', '', '', '\uFB9F'),
     # ARABIC LETTER RNOON
