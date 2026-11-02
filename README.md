@@ -38,6 +38,59 @@ helps with the reshaping so we can get the proper result like this:
 
 ![Arabic text written from right to left with reshaping](https://mpcabd.xyz/wp-content/uploads/2012/05/arabic-3.png)
 
+## Do you need this library?
+
+This library predates widespread access to real text shaping engines. Today,
+[HarfBuzz](https://harfbuzz.github.io/) is the standard way to shape Arabic
+text, and it is available in Python through
+[uharfbuzz](https://github.com/harfbuzz/uharfbuzz), and inside Pillow when it
+is built with [libraqm](https://github.com/HOST-Oman/libraqm).
+
+`arabic-reshaper` works by replacing letters with their
+[Unicode Presentation Forms](https://en.wikipedia.org/wiki/Arabic_Presentation_Forms-B)
+(U+FB50–U+FEFF), which any font-aware renderer can draw as plain characters.
+HarfBuzz instead picks glyphs using the font's own OpenType rules, and leaves
+your text untouched.
+
+### Use HarfBuzz when you can
+
+If your rendering pipeline can use a real shaper, prefer it. You will get:
+
+* **Correct diacritics:** Harakat are positioned by the font (GPOS), instead of
+  being deleted or shifted.
+* **All the font's ligatures and alternates:** Not just the ligatures Unicode
+  encodes, plus contextual and stylistic features (`calt`, `salt`, `ss01`, …).
+* **Every Arabic-script language:** Letters with no presentation-form
+  codepoints (used in Kurdish, Urdu, Pashto, Sindhi and others) shape
+  correctly, because HarfBuzz doesn't depend on them.
+* **Text that stays text:** Presentation forms break searching, copy-paste,
+  screen readers and Unicode normalization. HarfBuzz only changes glyphs, not
+  the string.
+
+For example, with Pillow you can check `PIL.features.check('raqm')`. If it
+returns `True`, pass the original text straight to `ImageDraw.text(...)` and
+Pillow will shape it and handle direction for you, with no reshaping or bidi
+step needed.
+
+### Use this library when you can't
+
+`arabic-reshaper` is still the right tool when:
+
+* **Your renderer only maps characters to glyphs:** For example Pillow
+  without libraqm, some plotting, PDF, GUI and game libraries (depending on
+  their version and build), terminals, and embedded displays such as LCDs and
+  thermal printers.
+* **You need the shaped result as a string:** For example to send to a device,
+  file format or API that only accepts text, not glyph IDs.
+* **You can't install native dependencies:** This library is pure Python with
+  no required dependencies.
+* **Your font only has presentation-form glyphs:** Some older or legacy fonts
+  have no OpenType shaping tables, so a shaper has nothing to work with.
+
+In these cases you will usually also need
+[python-bidi](https://github.com/MeirKriheli/python-bidi) to put the reshaped
+text in visual (right-to-left) order, as shown in the example below.
+
 ## Installation
 
     pip install --upgrade arabic-reshaper
@@ -57,8 +110,10 @@ reshaped_text = arabic_reshaper.reshape(text_to_be_reshaped)
 
 ### Example using PIL Image
 
-PIL Image does not support reshaping out of the box, so to draw Arabic text on an `Image` instance you would need to reshape
-the text for sure.
+If your Pillow build has libraqm support (`PIL.features.check('raqm')` returns
+`True`), you don't need this library to draw Arabic text, see
+[Do you need this library?](#do-you-need-this-library). Without libraqm, Pillow
+draws each character on its own, so you need to reshape the text first.
 
 For this example to work you need to run `pip install --upgrade arabic-reshaper python-bidi pillow`
 
@@ -106,8 +161,10 @@ image.show()
 You can configure the reshaper to your preferences, it has the following
 settings defined:
 
-* `language` (Default: `'Arabic'`): Ignored, the reshaper works with Arabic,
-Farsi, and Urdu, and most probably all other languages that use Arabic script.
+* `language` (Default: `'Arabic'`): Which letter table to use. `'Arabic'`
+works with Arabic, Farsi, Urdu, and most other languages that use Arabic
+script. `'Kurdish'` uses forms that match Kurdish fonts, and `'ArabicV2'` is an
+alternative Arabic table. Any other value falls back to `'Arabic'`.
 * `support_ligatures` (Default: `True`): When this is set to `False`, the
 reshaper will not replace any ligatures, otherwise it will replace enabled
 ligatures.
@@ -247,6 +304,24 @@ Online Arabic Reshaper: http://pydj.mpcabd.xyz/arabic-reshaper/
 https://github.com/mpcabd/python-arabic-reshaper/tarball/master
 
 ## Version History
+
+### 3.1.0
+
+Kurdish fixes and Python 3.15 support.
+
+* Kurdish (`language: 'Kurdish'`):
+  * Added `ڵ` (U+06B5, lam with small v), which was left unshaped. See #67, #104.
+  * Added `ڕ` (U+0695, reh with small v below), which was left unshaped. See #106.
+  * `ه` (heh) now uses the right glyph in each position. Before, every form
+    used the medial glyph, so word-initial and final heh had a stray
+    connecting stroke. See #106.
+  * Standalone `ح` (hah) no longer maps to U+FEA1, which Kurdish fonts don't
+    have, so it is drawn again. See #106.
+  * Standalone `ێ` no longer uses the final-form glyph. See #106.
+  * The Kurdish forms are checked against the Sarchia and Unikurd Web fonts.
+    **Output changes** for text with `ه`, `ح`, `ێ`, `ڵ` or `ڕ`.
+* Supports and tests on Python 3.15.
+* `arabic_reshaper.__version__` reports the right version again (it said 3.0.0).
 
 ### 3.0.1
 
