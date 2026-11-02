@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "arabic-reshaper"
-version = "3.0.1"
+version = "3.1.0"
 description = "Reconstruct Arabic sentences to be used in applications that do not support Arabic"
 readme = "README.md"
 license = { text = "MIT" }
@@ -24,6 +24,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 requires-python = ">=3.10"
