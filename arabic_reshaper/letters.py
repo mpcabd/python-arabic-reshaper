@@ -369,7 +369,7 @@ LETTERS_KURDISH = {
     # ARABIC LETTER JEEM
     '\u062C': ('\u062C', '\uFE9F', '\uFEA0', '\uFE9E'),
     # ARABIC LETTER HAH
-    '\u062D': ('\uFEA1', '\uFEA3', '\uFEA4', '\uFEA2'),
+    '\u062D': ('\u062D', '\uFEA3', '\uFEA4', '\uFEA2'),
     # ARABIC LETTER KHAH
     '\u062E': ('\u062E', '\uFEA7', '\uFEA8', '\uFEA6'),
     # ARABIC LETTER DAL
@@ -411,7 +411,7 @@ LETTERS_KURDISH = {
     # ARABIC LETTER NOON
     '\u0646': ('\u0646', '\uFEE7', '\uFEE8', '\uFEE6'),
     # ARABIC LETTER HEH
-    '\u0647': ('\uFBAB', '\uFBAB', '\uFBAB', '\uFBAB'),
+    '\u0647': ('\u0647', '\u06BE', '\uFBAB', '\uFEEA'),
     # ARABIC LETTER WAW
     '\u0648': ('\u0648', '', '', '\uFEEE'),
     # ARABIC LETTER (UIGHUR KAZAKH KIRGHIZ)? ALEF MAKSURA
@@ -452,6 +452,8 @@ LETTERS_KURDISH = {
     '\u068E': ('\u068E', '', '', '\uFB87'),
     # ARABIC LETTER RREH
     '\u0691': ('\u0691', '', '', '\uFB8D'),
+    # KURDISH LETTER REH WITH SMALL V BELOW
+    '\u0695': ('\u0695', '', '', '\uE001'),
     # ARABIC LETTER JEH
     '\u0698': ('\u0698', '', '', '\uFB8B'),
     # ARABIC LETTER VEH
@@ -501,7 +503,7 @@ LETTERS_KURDISH = {
     # ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
     '\u06D3': ('\u06D3', '', '', '\uFBB1'),
     # Kurdish letter YEAH
-    '\u06ce': ('\uE004', '\uE005', '\uE006', '\uE004'),
+    '\u06ce': ('\u06ce', '\uE005', '\uE006', '\uE004'),
     # Kurdish letter Hamza same as arabic Teh without the point
     '\u06d5': ('\u06d5', '', '', '\uE000'),
     # ZWJ
