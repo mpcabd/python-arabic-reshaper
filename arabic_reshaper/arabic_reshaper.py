@@ -27,8 +27,8 @@ HARAKAT_RE = re.compile(
     '\u06d6-\u06dc'
     '\u06df-\u06e8'
     '\u06ea-\u06ed'
-    '\u08d4-\u08e1'
-    '\u08d4-\u08ed'
+    '\u0897-\u089f'
+    '\u08ca-\u08e1'
     '\u08e3-\u08ff'
     ']',
 
